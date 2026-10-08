@@ -5,11 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ýolýoldaş — Şäherara Arzan Ýol we Taksi</title>
 
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K3D2G7ZK48"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K3D2G7ZK48');
+</script>
 
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6474321055497636"
+     crossorigin="anonymous"></script> 
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
 <style>
 :root {
 --bg-main: #0B0F19;
@@ -34,7 +46,6 @@ color: var(--text-light);
 display: flex;
 flex-direction: column;
 min-height: 100vh;
-padding-bottom: 40px;
 } 
 header {
 background: var(--panel-bg);
@@ -75,6 +86,16 @@ transition: transform 0.2s;
 .btn-pro:hover {
 transform: scale(1.05);
 } 
+.btn-admin {
+background: #FF1744;
+color: #fff;
+border: none;
+padding: 9px 16px;
+border-radius: 8px;
+font-weight: bold;
+font-size: 13px;
+cursor: pointer;
+}
 .btn-google {
 background-color: #ffffff;
 color: #000000;
@@ -126,6 +147,7 @@ font-weight: bold;
 max-width: 900px;
 margin: 20px auto;
 width: 95%;
+flex: 1;
 } 
 .nav-tabs {
 display: flex;
@@ -355,6 +377,64 @@ margin-bottom: 15px;
 text-align: center;
 } 
 
+/* AdSense Container Style */
+.ad-container {
+margin: 20px 0;
+text-align: center;
+background: var(--panel-bg);
+border: 1px dashed var(--border);
+padding: 10px;
+border-radius: 8px;
+}
+
+/* Footer Style */
+footer {
+background-color: var(--panel-bg);
+border-top: 1px solid var(--border);
+padding: 25px 20px;
+margin-top: 40px;
+color: var(--text-muted);
+font-size: 13px;
+}
+.footer-container {
+max-width: 900px;
+margin: 0 auto;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+gap: 20px;
+}
+.footer-section {
+flex: 1;
+min-width: 200px;
+}
+.footer-section h4 {
+color: var(--accent-blue);
+margin-bottom: 10px;
+font-size: 15px;
+}
+.footer-section ul {
+list-style: none;
+}
+.footer-section ul li {
+margin-bottom: 6px;
+}
+.footer-section a {
+color: var(--text-muted);
+text-decoration: none;
+transition: color 0.2s;
+}
+.footer-section a:hover {
+color: var(--accent-green);
+}
+.footer-bottom {
+text-align: center;
+margin-top: 20px;
+padding-top: 15px;
+border-top: 1px solid var(--border);
+font-size: 12px;
+}
+
 .modal {
 display: none;
 position: fixed;
@@ -419,28 +499,63 @@ font-size: 12px;
 color: var(--text-muted);
 margin-top: 5px;
 }
+.admin-item {
+background: var(--card-bg);
+padding: 12px;
+border-radius: 8px;
+margin-bottom: 10px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+border: 1px solid var(--border);
+}
+.btn-approve {
+background: var(--accent-green);
+color: #000;
+border: none;
+padding: 8px 12px;
+border-radius: 6px;
+font-weight: bold;
+cursor: pointer;
+}
 </style>
 </head>
 <body>
-<!-- Google OAuth Client ID Konfigurasiýasy -->
-<meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
+
+<meta name="google-signin-client_id" content="546239368897-g4431p56u5lcddns6h15autv0cjtdp7v.apps.googleusercontent.com">
 <header>
 <div class="logo-box">
 <h1>ÝOLÝOLDAŞ</h1>
 <p>Şäherara amatly ýolagçy gatnawy</p>
 </div>
 <div class="auth-container" id="authBox">
+<button class="btn-admin" id="adminBtn" style="display:none;" onclick="openAdminModal()">Admin Panel</button>
 <button class="btn-pro" id="proBtn" style="display:none;" onclick="openProModal()">PRO Agzalyk</button>
 <button class="btn-google" id="loginBtn" onclick="loginWithGoogle()">
 <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>Google bilen gir
 </button>
 </div>
 </header>
+
 <div class="container">
 <div class="nav-tabs">
 <button class="tab-btn active" onclick="switchTab('searchView')">Taxiler</button>
 <button class="tab-btn" onclick="switchTab('postView')">➕ Taxi Goşmak</button>
 </div>
+
+<!-- Google AdSense Reklama Blogy (Ýokarky Banner) -->
+<div class="ad-container">
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="1234567890"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
 <div id="searchView" class="view-section active">
 <div class="filter-box">
 <select id="filterFrom" onchange="filterRides()">
@@ -465,6 +580,7 @@ margin-top: 5px;
 </div>
 <div id="ridesContainer" class="rides-list"></div>
 </div>
+
 <div id="postView" class="view-section">
 <div class="form-card"><div id="authNotice"></div>
 <form id="rideForm" onsubmit="handlePostRide(event)">
@@ -522,6 +638,7 @@ margin-top: 5px;
 </div>
 </div>
 </div>
+
 <div id="proModal" class="modal">
 <div class="modal-content">
 <div class="modal-header">
@@ -529,28 +646,28 @@ margin-top: 5px;
 <span class="close" onclick="closeProModal()">&times;</span>
 </div>
 <div class="pro-plans">
-<div class="plan-card" onclick="activatePro('trial')">
+<div class="plan-card" onclick="activatePro('trial', 0)">
 <div class="plan-header">
 <span>Free Trial</span>
 <span class="plan-price">Mugt</span>
 </div>
 <p class="plan-desc">Ilkinji 3 gün mugt PRO belligi we yglanlaryňyz başda görner.</p>
 </div>
-<div class="plan-card" onclick="activatePro('standard')">
+<div class="plan-card" onclick="activatePro('standard', 5)">
 <div class="plan-header">
 <span>Standard</span>
 <span class="plan-price">5 TMT</span>
 </div>
 <p class="plan-desc">3 gün üçin PRO agzalyk. Yglanlar reňkli we ýokarda.</p>
 </div>
-<div class="plan-card" onclick="activatePro('premium')">
+<div class="plan-card" onclick="activatePro('premium', 10)">
 <div class="plan-header">
 <span>Premium</span>
 <span class="plan-price">10 TMT</span>
 </div>
 <p class="plan-desc">10 gün üçin PRO agzalyk. VIP Sürüji belligi.</p>
 </div>
-<div class="plan-card" onclick="activatePro('pro')">
+<div class="plan-card" onclick="activatePro('pro', 20)">
 <div class="plan-header">
 <span>PRO User</span>
 <span class="plan-price">20 TMT</span>
@@ -560,9 +677,52 @@ margin-top: 5px;
 </div>
 </div>
 </div>
+
+<!-- Admin Panel Modaly -->
+<div id="adminModal" class="modal">
+<div class="modal-content">
+<div class="modal-header">
+<span>Gelen Töleg Haýyşlary</span>
+<span class="close" onclick="closeAdminModal()">&times;</span>
+</div>
+<div id="adminRequestsList">
+<p style="color:var(--text-muted);">Barlagda duran töleg ýok...</p>
+</div>
+</div>
+</div>
+
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-section">
+      <h4>Ýolýoldaş Barada</h4>
+      <p>Türkmenistanyň şäherara ugurlary boýunça amatly, tiz we ynamly taksi we ýolagçy gözleg platformasy.</p>
+    </div>
+    <div class="footer-section">
+      <h4>Çalt Baglanyşyklar</h4>
+      <ul>
+        <li><a href="#" onclick="switchTab('searchView')">Taksi Gözlemek</a></li>
+        <li><a href="#" onclick="switchTab('postView')">Yglan Goşmak</a></li>
+        <li><a href="#" onclick="openProModal()">PRO Sürüji Bolmak</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Habarlaşmak</h4>
+      <p>Email: support@yolyoldas.com</p>
+      <p>Tel: +993 65 XXXXXX</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Ýolýoldaş Platformasy. Ähli hukuklar goralan.
+  </div>
+</footer>
+
 <script>
-// Google Auth Client ID (Açyk ID)
-const GOOGLE_CLIENT_ID = "760637041493-7vkijh714sfgh17q9bf943p5v92gviof.apps.googleusercontent.com";
+const MY_PAYMENT_PHONE = "+99364410621"; 
+const ADMIN_EMAIL = "200707@gmail.com"; 
+const ADMIN_PASSWORD = "20+90ye12m";
+
+const GOOGLE_CLIENT_ID = "546239368897-g4431p56u5lcddns6h15autv0cjtdp7v.apps.googleusercontent.com";
 const firebaseConfig = {
 apiKey: "AIzaSyDYTMyZxMr_6LsF1f6kNaIVKS5ITrvcMQ4",
 authDomain: "tkmtaxi-a99f4.firebaseapp.com",
@@ -579,6 +739,11 @@ const googleProvider = new firebase.auth.GoogleAuthProvider();
 let currentUser = null;
 let currentUserProStatus = false;
 let allRides = [];
+let isInitialLoad = true;
+
+if ("Notification" in window && Notification.permission !== "granted") {
+    Notification.requestPermission();
+}
 
 auth.onAuthStateChanged(user => {
 currentUser = user;
@@ -589,43 +754,52 @@ initRidesListener();
 });
 
 async function checkProStatus() {
-            if (!currentUser) {
-                currentUserProStatus = false;
-                return;
-            }
-            try {
-                const userDoc = await db.collection("users").doc(currentUser.uid).get();
-                if (userDoc.exists) {
-                    const userData = userDoc.data();
-                    if (userData.isPro && userData.proExpiration) {
-                        const now = firebase.firestore.Timestamp.now();
-                        if (userData.proExpiration.seconds > now.seconds) {
-                            currentUserProStatus = true;
-                        } else {
-                            await db.collection("users").doc(currentUser.uid).update({ isPro: false });
-                            currentUserProStatus = false;
-                        }
-                    } else {
-                        currentUserProStatus = false;
-                    }
+    if (!currentUser) {
+        currentUserProStatus = false;
+        return;
+    }
+    try {
+        const userDoc = await db.collection("users").doc(currentUser.uid).get();
+        if (userDoc.exists) {
+            const userData = userDoc.data();
+            if (userData.isPro && userData.proExpiration) {
+                const now = firebase.firestore.Timestamp.now();
+                if (userData.proExpiration.seconds > now.seconds) {
+                    currentUserProStatus = true;
                 } else {
+                    await db.collection("users").doc(currentUser.uid).update({ isPro: false });
                     currentUserProStatus = false;
                 }
-            } catch (e) {
-                console.error("PRO check error:", e);
+            } else {
                 currentUserProStatus = false;
             }
-        }  
+        } else {
+            currentUserProStatus = false;
+        }
+    } catch (e) {
+        console.error("PRO check error:", e);
+        currentUserProStatus = false;
+    }
+}  
 
 function updateAuthUI() {
 const authBox = document.getElementById('authBox');
 const authNotice = document.getElementById('authNotice');
 const driverNameInput = document.getElementById('driverName');
 const proBtn = document.getElementById('proBtn');
+const adminBtn = document.getElementById('adminBtn');
 const loginBtn = document.getElementById('loginBtn');
+
 if (currentUser) {
 loginBtn.style.display = 'none';
 proBtn.style.display = 'inline-block';
+
+if (currentUser.email === ADMIN_EMAIL) {
+    adminBtn.style.display = 'inline-block';
+} else {
+    adminBtn.style.display = 'none';
+}
+
 if (currentUserProStatus) {
 proBtn.innerText = 'VIP Sürüji';
 proBtn.style.background = 'linear-gradient(90deg, #FFD700 0%,#FFB600 100%)';
@@ -633,6 +807,7 @@ proBtn.style.background = 'linear-gradient(90deg, #FFD700 0%,#FFB600 100%)';
 proBtn.innerText = 'PRO Agzalyk';
 proBtn.style.background = 'linear-gradient(90deg, #FFD700 0%,#FF9100 100%)';
 } 
+
 if (!document.querySelector('.user-profile')) {
 const userProfile = document.createElement('div');
 userProfile.className = 'user-profile';
@@ -650,6 +825,7 @@ driverNameInput.value = currentUser.displayName || '';
 } else {
 loginBtn.style.display = 'flex';
 proBtn.style.display = 'none';
+adminBtn.style.display = 'none';
 const userProfile = document.querySelector('.user-profile');
 if (userProfile) userProfile.remove();
 authNotice.innerHTML = `
@@ -679,10 +855,33 @@ alert("Ulgamdan çykdyňyz.");
 const modal = document.getElementById("proModal");
 function openProModal() { modal.style.display = "block"; }
 function closeProModal() { modal.style.display = "none"; }
-window.onclick = function(event) { if (event.target == modal) { closeProModal(); } }
 
-async function activatePro(planId) {
-if (!currentUser) return;
+const adminModal = document.getElementById("adminModal");
+
+function openAdminModal() { 
+    const enteredCode = prompt("Admin paneline girmek üçin paroly giriziň:");
+    if (enteredCode === ADMIN_PASSWORD) {
+        adminModal.style.display = "block"; 
+        loadAdminRequests();
+    } else if (enteredCode !== null) {
+        alert("❌ Ýalňyş parol! Giriş gadagan edildi.");
+    }
+}
+
+function closeAdminModal() { adminModal.style.display = "none"; }
+
+window.onclick = function(event) { 
+    if (event.target == modal) { closeProModal(); } 
+    if (event.target == adminModal) { closeAdminModal(); }
+}
+
+async function activatePro(planId, price) {
+if (!currentUser) {
+    alert("PRO agza bolmak üçin ilki Google bilen giriň.");
+    loginWithGoogle();
+    return;
+}
+
 let durationDays = 0;
 switch(planId) {
 case 'trial': durationDays = 3; break;
@@ -690,37 +889,123 @@ case 'standard': durationDays = 3; break;
 case 'premium': durationDays = 10; break;
 case 'pro': durationDays = 30; break;
 }
+
 if (durationDays === 0) return;
-const expirationDate = new Date();
-expirationDate.setDate(expirationDate.getDate() + durationDays);
-const expirationTimestamp = firebase.firestore.Timestamp.fromDate(expirationDate);
-try {
-await db.collection("users").doc(currentUser.uid).set({
-isPro: true,
-proExpiration: expirationTimestamp,
-proPlan: planId
-}, { merge: true });
-alert(`Gutlaýarys! ${durationDays} günlik PRO agzalyk aktivleşdirildi.`);
-currentUserProStatus = true;
-closeProModal();
-updateAuthUI();
-await autoBumpProRides();
-} catch (e) {
-console.error("Pro activation error:", e);
-alert("Sazlamada ýalňyşlyk döredi.");
+
+if (price > 0) {
+    const confirmPay = confirm(`PRO hyzmat bahasy: ${price} TMT.\nTölegi ${MY_PAYMENT_PHONE} belgä geçirip "OK" basyň.`);
+    if (!confirmPay) return;
+
+    try {
+        await db.collection("users").doc(currentUser.uid).set({
+            requestedPlan: planId,
+            requestedDays: durationDays,
+            paymentStatus: "pending",
+            userEmail: currentUser.email,
+            userName: currentUser.displayName
+        }, { merge: true });
+
+        alert("📩 Töleg haýyşyňyz uratyldy! Admin barlagdan geçirenden soň PRO status awtomatiki açylar.");
+        closeProModal();
+    } catch (e) {
+        alert("Ýalňyşlyk döredi: " + e.message);
+    }
+} else {
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + durationDays);
+    const expirationTimestamp = firebase.firestore.Timestamp.fromDate(expirationDate);
+
+    try {
+        await db.collection("users").doc(currentUser.uid).set({
+            isPro: true,
+            proExpiration: expirationTimestamp,
+            proPlan: planId
+        }, { merge: true });
+        alert(`Gutlaýarys! ${durationDays} günlik Mugt Trial PRO agzalyk aktivleşdirildi.`);
+        currentUserProStatus = true;
+        closeProModal();
+        updateAuthUI();
+        await autoBumpProRides();
+    } catch (e) {
+        console.error("Pro activation error:", e);
+        alert("Sazlamada ýalňyşlyk döredi.");
+    }
 }
 } 
+
+async function loadAdminRequests() {
+    const listDiv = document.getElementById("adminRequestsList");
+    try {
+        const snapshot = await db.collection("users").where("paymentStatus", "==", "pending").get();
+        if (snapshot.empty) {
+            listDiv.innerHTML = `<p style="color:var(--text-muted);">Täze töleg haýyşy ýok.</p>`;
+            return;
+        }
+        listDiv.innerHTML = snapshot.docs.map(doc => {
+            const u = doc.data();
+            return `
+                <div class="admin-item">
+                    <div>
+                        <b>${u.userName || 'Ulanyjy'}</b><br>
+                        <small style="color:var(--text-muted);">${u.userEmail}</small><br>
+                        <small style="color:var(--accent-gold);">Meýilnama: ${u.requestedPlan} (${u.requestedDays} gün)</small>
+                    </div>
+                    <button class="btn-approve" onclick="approvePro('${doc.id}', ${u.requestedDays})">✅ Tassykla (PRO Ber)</button>
+                </div>
+            `;
+        }).join('');
+    } catch (e) {
+        listDiv.innerHTML = `<p style="color:red;">Ýalňyşlyk: ${e.message}</p>`;
+    }
+}
+
+async function approvePro(userId, days) {
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + days);
+    const expirationTimestamp = firebase.firestore.Timestamp.fromDate(expirationDate);
+
+    try {
+        await db.collection("users").doc(userId).update({
+            isPro: true,
+            proExpiration: expirationTimestamp,
+            paymentStatus: "approved"
+        });
+        alert("✅ PRO status üstünlikli aktiwleşdirildi!");
+        loadAdminRequests();
+    } catch (e) {
+        alert("Aktivleşdirmekde ýalňyşlyk: " + e.message);
+    }
+}
+
+function sendNotification(title, body) {
+    if ("Notification" in window && Notification.permission === "granted") {
+        new Notification(title, { body: body, icon: "https://via.placeholder.com/128" });
+    }
+}
 
 function initRidesListener() {
 if (window.ridesUnsubscribe) window.ridesUnsubscribe();
 window.ridesUnsubscribe = db.collection("rides")
-.orderBy("isProDriver", "desc")
 .orderBy("createdAt", "desc")
 .onSnapshot(snapshot => {
-allRides = snapshot.docs.map(doc => ({
+if (!isInitialLoad) {
+    snapshot.docChanges().forEach(change => {
+        if (change.type === "added") {
+            const data = change.doc.data();
+            sendNotification("🚕 Täze Taksi Goşuldy!", `${data.from} ➔ ${data.to} | Bahasy: ${data.price} TMT`);
+        }
+    });
+}
+isInitialLoad = false;
+
+let rides = snapshot.docs.map(doc => ({
 id: doc.id,
 ...doc.data()
 }));
+
+rides.sort((a, b) => (b.isProDriver ? 1 : 0) - (a.isProDriver ? 1 : 0));
+
+allRides = rides;
 filterRides();
 }, error => {
 console.error("Firestore error:", error);
