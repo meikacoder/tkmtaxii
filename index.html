@@ -792,58 +792,54 @@ async function checkProStatus() {
 }  
 
 function updateAuthUI() {
-const authBox = document.getElementById('authBox');
-const authNotice = document.getElementById('authNotice');
-const driverNameInput = document.getElementById('driverName');
-const proBtn = document.getElementById('proBtn');
-const adminBtn = document.getElementById('adminBtn');
-const loginBtn = document.getElementById('loginBtn');
+  const authBox = document.getElementById('authBox');
+  const authNotice = document.getElementById('authNotice');
+  const driverNameInput = document.getElementById('driverName');
+  const proBtn = document.getElementById('proBtn');
+  const adminBtn = document.getElementById('adminBtn');
+  const loginBtn = document.getElementById('loginBtn');
 
-if (currentUser) {
-loginBtn.style.display = 'none';
-proBtn.style.display = 'inline-block';
+  // Admin butonu her zaman görünür kalsın
+  adminBtn.style.display = 'inline-block';
 
-if (currentUser.email === ADMIN_EMAIL) {
-    adminBtn.style.display = 'inline-block';
-} else {
-    adminBtn.style.display = 'none';
-}
+  if (currentUser) {
+    loginBtn.style.display = 'none';
+    proBtn.style.display = 'inline-block';
 
-if (currentUserProStatus) {
-proBtn.innerText = 'VIP Sürüji';
-proBtn.style.background = 'linear-gradient(90deg, #FFD700 0%,#FFB600 100%)';
-} else {
-proBtn.innerText = 'PRO Agzalyk';
-proBtn.style.background = 'linear-gradient(90deg, #FFD700 0%,#FF9100 100%)';
-} 
+    if (currentUserProStatus) {
+      proBtn.innerText = 'VIP Sürüji';
+      proBtn.style.background = 'linear-gradient(90deg, #FFD700 0%,#FFB600 100%)';
+    } else {
+      proBtn.innerText = 'PRO Agzalyk';
+      proBtn.style.background = 'linear-gradient(90deg, #FFD700 0%,#FF9100 100%)';
+    } 
 
-if (!document.querySelector('.user-profile')) {
-const userProfile = document.createElement('div');
-userProfile.className = 'user-profile';
-userProfile.innerHTML = `
-<img src="${currentUser.photoURL || 'https://via.placeholder.com/32'}" class="user-avatar" alt="Profile">
-<span class="user-name">${currentUser.displayName || 'Ulanyjy'}</span>
-<button class="btn-logout" onclick="logout()">Çykmak</button>
-`;
-authBox.appendChild(userProfile);
+    if (!document.querySelector('.user-profile')) {
+      const userProfile = document.createElement('div');
+      userProfile.className = 'user-profile';
+      userProfile.innerHTML = `
+        <img src="${currentUser.photoURL || 'https://via.placeholder.com/32'}" class="user-avatar" alt="Profile">
+        <span class="user-name">${currentUser.displayName || 'Ulanyjy'}</span>
+        <button class="btn-logout" onclick="logout()">Çykmak</button>
+      `;
+      authBox.appendChild(userProfile);
+    }
+    authNotice.innerHTML = '';
+    if (!driverNameInput.value) {
+      driverNameInput.value = currentUser.displayName || '';
+    }
+  } else {
+    loginBtn.style.display = 'flex';
+    proBtn.style.display = 'none';
+    const userProfile = document.querySelector('.user-profile');
+    if (userProfile) userProfile.remove();
+    authNotice.innerHTML = `
+      <div class="auth-warning">
+        ⚠️ Yglan goşmak üçin ýokardan <b>Google Akkauntyňyz</b> bilen girseňiz gowy bolardy!
+      </div>
+    `;
+  }
 }
-authNotice.innerHTML = '';
-if (!driverNameInput.value) {
-driverNameInput.value = currentUser.displayName || '';
-}
-} else {
-loginBtn.style.display = 'flex';
-proBtn.style.display = 'none';
-adminBtn.style.display = 'none';
-const userProfile = document.querySelector('.user-profile');
-if (userProfile) userProfile.remove();
-authNotice.innerHTML = `
-<div class="auth-warning">
-⚠️ Yglan goşmak üçin ýokardan <b>Google Akkauntyňyz</b> bilen girseňiz gowy bolardy!
-</div>
-`;
-}
-} 
 
 function loginWithGoogle() {
 auth.signInWithPopup(googleProvider)
