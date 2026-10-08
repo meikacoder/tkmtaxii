@@ -708,8 +708,8 @@ cursor: pointer;
     </div>
     <div class="footer-section">
       <h4>Habarlaşmak</h4>
-      <p>Email: support@yolyoldas.com</p>
-      <p>Tel: +993 65 XXXXXX</p>
+      <p>Email: abdyyewgurbanmyrat07@gmail.com</p>
+      <p>Tel: +993 64 410621</p>
     </div>
   </div>
   <div class="footer-bottom">
@@ -746,11 +746,20 @@ if ("Notification" in window && Notification.permission !== "granted") {
 }
 
 auth.onAuthStateChanged(user => {
-currentUser = user;
-checkProStatus().then(() => {
-updateAuthUI();
-initRidesListener();
+  currentUser = user;
+  checkProStatus().then(() => {
+    updateAuthUI();
+    initRidesListener();
+  });
 });
+
+// Admin sahypasyndan gaýdyp gelende Modaly awtomatiki açmak üçin:
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('admin') === 'true' && sessionStorage.getItem("isAdminLoggedIn") === "true") {
+        adminModal.style.display = "block";
+        loadAdminRequests();
+    }
 });
 
 async function checkProStatus() {
@@ -859,12 +868,13 @@ function closeProModal() { modal.style.display = "none"; }
 const adminModal = document.getElementById("adminModal");
 
 function openAdminModal() { 
-    const enteredCode = prompt("Admin paneline girmek üçin paroly giriziň:");
-    if (enteredCode === ADMIN_PASSWORD) {
+    // IsAdminLoggedIn sesiýasy barlanylýar
+    if (sessionStorage.getItem("isAdminLoggedIn") === "true") {
         adminModal.style.display = "block"; 
         loadAdminRequests();
-    } else if (enteredCode !== null) {
-        alert("❌ Ýalňyş parol! Giriş gadagan edildi.");
+    } else {
+        // Giriş edilmedik bolsa Admin Login sahypasyna ugradýar
+        window.location.href = "admin-login.html";
     }
 }
 
