@@ -4,7 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ýolýoldaş — Şäherara Arzan Ýol we Taksi</title>
-<link rel="icon" type="image/png" href="logo.png">
+
+<!-- Google SEO & Favicon -->
+<link rel="icon" type="image/jpeg" href="logo.jpg">
+<meta name="description" content="Ýolýoldaş — Türkmenistanyň şäherara ugurlary boýunça amatly, tiz we ynamly taksi hem-de ýolagçy gözleg platformasy.">
+<meta name="keywords" content="yolyoldas, ýolýoldaş, taksi turkmenistan, asgabat mary taksi, lebab dasoguz taksi, arzan yol">
+<meta name="author" content="Meika">
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3D2G7ZK48"></script>
 <script>
@@ -14,9 +19,8 @@
   gtag('config', 'G-K3D2G7ZK48');
 </script>
 
-
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6474321055497636"
-     crossorigin="anonymous"></script>
+     crossorigin="anonymous"></script> 
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -329,7 +333,7 @@ gap: 10px;
 margin-top: 5px;
 }
 .btn-call {
-flex: 2;
+flex: 1;
 background-color: var(--accent-green);
 color: #000;
 text-decoration: none;
@@ -338,19 +342,6 @@ padding: 10px;
 border-radius: 8px;
 font-weight: bold;
 font-size: 14px;
-}
-.btn-book {
-flex: 1;
-background-color: var(--accent-blue);
-color: #000;
-border: none;
-border-radius: 8px;
-font-weight: bold;
-cursor: pointer;
-}
-.btn-book:disabled {
-background-color: var(--text-muted);
-cursor: not-allowed;
 }
 .btn-delete {
 background-color: #FF1744;
@@ -378,7 +369,6 @@ margin-bottom: 15px;
 text-align: center;
 } 
 
-/* AdSense Container Style */
 .ad-container {
 margin: 20px 0;
 text-align: center;
@@ -388,7 +378,6 @@ padding: 10px;
 border-radius: 8px;
 }
 
-/* Footer Style */
 footer {
 background-color: var(--panel-bg);
 border-top: 1px solid var(--border);
@@ -523,7 +512,6 @@ cursor: pointer;
 </head>
 <body>
 
-<meta name="google-signin-client_id" content="546239368897-g4431p56u5lcddns6h15autv0cjtdp7v.apps.googleusercontent.com">
 <header>
 <div class="logo-box">
 <h1>ÝOLÝOLDAŞ</h1>
@@ -543,7 +531,6 @@ cursor: pointer;
 <button class="tab-btn active" onclick="switchTab('searchView')">Taxiler</button>
 <button class="tab-btn" onclick="switchTab('postView')">➕ Taxi Goşmak</button>
 </div>
-
 
 <div class="ad-container">
 <ins class="adsbygoogle"
@@ -622,11 +609,7 @@ cursor: pointer;
 <label>Gidiljek Wagty</label><input type="datetime-local" id="rideTime" required>
 </div>
 <div class="form-group">
-<label>Boş Ýer Sany</label>
-<input type="number" id="seatsAvailable" min="1" max="8" value="3" required>
-</div>
-<div class="form-group">
-<label>1 Orun Bahasy (TMT)</label>
+<label>Bahasy (TMT)</label>
 <input type="number" id="pricePerSeat" placeholder="50" required>
 </div>
 <div class="form-group">
@@ -679,7 +662,6 @@ cursor: pointer;
 </div>
 </div>
 
-<!-- Admin Panel Modaly -->
 <div id="adminModal" class="modal">
 <div class="modal-content">
 <div class="modal-header">
@@ -691,7 +673,6 @@ cursor: pointer;
 </div>
 </div>
 </div>
-
 
 <footer>
   <div class="footer-container">
@@ -709,8 +690,8 @@ cursor: pointer;
     </div>
     <div class="footer-section">
       <h4>Habarlaşmak</h4>
-      <p>Email: abdyyewgurbanmyrat07@gmail.com</p>
-      <p>Tel: +993 64 410621</p>
+      <p>Email: support@yolyoldas.com</p>
+      <p>Tel: +993 65 XXXXXX</p>
     </div>
   </div>
   <div class="footer-bottom">
@@ -721,9 +702,7 @@ cursor: pointer;
 <script>
 const MY_PAYMENT_PHONE = "+99364410621"; 
 const ADMIN_EMAIL = "200707@gmail.com"; 
-const ADMIN_PASSWORD = "20+90ye12m";
 
-const GOOGLE_CLIENT_ID = "546239368897-g4431p56u5lcddns6h15autv0cjtdp7v.apps.googleusercontent.com";
 const firebaseConfig = {
 apiKey: "AIzaSyDYTMyZxMr_6LsF1f6kNaIVKS5ITrvcMQ4",
 authDomain: "tkmtaxi-a99f4.firebaseapp.com",
@@ -747,14 +726,13 @@ if ("Notification" in window && Notification.permission !== "granted") {
 }
 
 auth.onAuthStateChanged(user => {
-  currentUser = user;
-  checkProStatus().then(() => {
-    updateAuthUI();
-    initRidesListener();
-  });
+currentUser = user;
+checkProStatus().then(() => {
+updateAuthUI();
+initRidesListener();
+});
 });
 
-// Admin sahypasyndan gaýdyp gelende Modaly awtomatiki açmak üçin:
 window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('admin') === 'true' && sessionStorage.getItem("isAdminLoggedIn") === "true") {
@@ -793,54 +771,53 @@ async function checkProStatus() {
 }  
 
 function updateAuthUI() {
-  const authBox = document.getElementById('authBox');
-  const authNotice = document.getElementById('authNotice');
-  const driverNameInput = document.getElementById('driverName');
-  const proBtn = document.getElementById('proBtn');
-  const adminBtn = document.getElementById('adminBtn');
-  const loginBtn = document.getElementById('loginBtn');
+const authBox = document.getElementById('authBox');
+const authNotice = document.getElementById('authNotice');
+const driverNameInput = document.getElementById('driverName');
+const proBtn = document.getElementById('proBtn');
+const adminBtn = document.getElementById('adminBtn');
+const loginBtn = document.getElementById('loginBtn');
 
-  // Admin butonu her zaman görünür kalsın
-  adminBtn.style.display = 'inline-block';
+adminBtn.style.display = 'inline-block';
 
-  if (currentUser) {
-    loginBtn.style.display = 'none';
-    proBtn.style.display = 'inline-block';
+if (currentUser) {
+loginBtn.style.display = 'none';
+proBtn.style.display = 'inline-block';
 
-    if (currentUserProStatus) {
-      proBtn.innerText = 'VIP Sürüji';
-      proBtn.style.background = 'linear-gradient(90deg, #FFD700 0%,#FFB600 100%)';
-    } else {
-      proBtn.innerText = 'PRO Agzalyk';
-      proBtn.style.background = 'linear-gradient(90deg, #FFD700 0%,#FF9100 100%)';
-    } 
+if (currentUserProStatus) {
+proBtn.innerText = 'VIP Sürüji';
+proBtn.style.background = 'linear-gradient(90deg, #FFD700 0%,#FFB600 100%)';
+} else {
+proBtn.innerText = 'PRO Agzalyk';
+proBtn.style.background = 'linear-gradient(90deg, #FFD700 0%,#FF9100 100%)';
+} 
 
-    if (!document.querySelector('.user-profile')) {
-      const userProfile = document.createElement('div');
-      userProfile.className = 'user-profile';
-      userProfile.innerHTML = `
-        <img src="${currentUser.photoURL || 'https://via.placeholder.com/32'}" class="user-avatar" alt="Profile">
-        <span class="user-name">${currentUser.displayName || 'Ulanyjy'}</span>
-        <button class="btn-logout" onclick="logout()">Çykmak</button>
-      `;
-      authBox.appendChild(userProfile);
-    }
-    authNotice.innerHTML = '';
-    if (!driverNameInput.value) {
-      driverNameInput.value = currentUser.displayName || '';
-    }
-  } else {
-    loginBtn.style.display = 'flex';
-    proBtn.style.display = 'none';
-    const userProfile = document.querySelector('.user-profile');
-    if (userProfile) userProfile.remove();
-    authNotice.innerHTML = `
-      <div class="auth-warning">
-        ⚠️ Yglan goşmak üçin ýokardan <b>Google Akkauntyňyz</b> bilen girseňiz gowy bolardy!
-      </div>
-    `;
-  }
+if (!document.querySelector('.user-profile')) {
+const userProfile = document.createElement('div');
+userProfile.className = 'user-profile';
+userProfile.innerHTML = `
+<img src="${currentUser.photoURL || 'https://via.placeholder.com/32'}" class="user-avatar" alt="Profile">
+<span class="user-name">${currentUser.displayName || 'Ulanyjy'}</span>
+<button class="btn-logout" onclick="logout()">Çykmak</button>
+`;
+authBox.appendChild(userProfile);
 }
+authNotice.innerHTML = '';
+if (!driverNameInput.value) {
+driverNameInput.value = currentUser.displayName || '';
+}
+} else {
+loginBtn.style.display = 'flex';
+proBtn.style.display = 'none';
+const userProfile = document.querySelector('.user-profile');
+if (userProfile) userProfile.remove();
+authNotice.innerHTML = `
+<div class="auth-warning">
+⚠️ Yglan goşmak üçin ýokardan <b>Google Akkauntyňyz</b> bilen girseňiz gowy bolardy!
+</div>
+`;
+}
+} 
 
 function loginWithGoogle() {
 auth.signInWithPopup(googleProvider)
@@ -865,12 +842,10 @@ function closeProModal() { modal.style.display = "none"; }
 const adminModal = document.getElementById("adminModal");
 
 function openAdminModal() { 
-    // IsAdminLoggedIn sesiýasy barlanylýar
     if (sessionStorage.getItem("isAdminLoggedIn") === "true") {
         adminModal.style.display = "block"; 
         loadAdminRequests();
     } else {
-        // Giriş edilmedik bolsa Admin Login sahypasyna ugradýar
         window.location.href = "admin-login.html";
     }
 }
@@ -986,8 +961,25 @@ async function approvePro(userId, days) {
 
 function sendNotification(title, body) {
     if ("Notification" in window && Notification.permission === "granted") {
-        new Notification(title, { body: body, icon: "https://via.placeholder.com/128" });
+        new Notification(title, { body: body, icon: "logo.jpg" });
     }
+}
+
+function cleanExpiredRides(rides) {
+    const now = new Date().getTime();
+    rides.forEach(async (ride) => {
+        if (ride.time) {
+            const rideTime = new Date(ride.time).getTime();
+            if (rideTime < now) {
+                try {
+                    await db.collection("rides").doc(ride.id).delete();
+                    console.log("Wagty geçen yglan pozuldy:", ride.id);
+                } catch(e) {
+                    console.error("Wagty geçen yglany pozmakda ýalňyşlyk:", e);
+                }
+            }
+        }
+    });
 }
 
 function initRidesListener() {
@@ -1009,6 +1001,13 @@ let rides = snapshot.docs.map(doc => ({
 id: doc.id,
 ...doc.data()
 }));
+
+cleanExpiredRides(rides);
+
+rides = rides.filter(r => {
+    if (!r.time) return true;
+    return new Date(r.time).getTime() >= new Date().getTime();
+});
 
 rides.sort((a, b) => (b.isProDriver ? 1 : 0) - (a.isProDriver ? 1 : 0));
 
@@ -1052,11 +1051,9 @@ ${ride.isProDriver ? `<span style="color:var(--accent-gold); font-size: 11px; ma
 <div class="ride-details">
 <div>🚘 Maşyn: <span>${ride.car || 'Görkezilmän'}</span></div>
 <div>📅 Wagty: <span>${formatDate(ride.time)}</span></div>
-<div>💺 Boş ýer: <span>${ride.seats} adam</span></div>
 </div>
 <div class="ride-footer">
                         <a href="tel:${ride.phone}" class="btn-call">📞 Jaň Etmek (${ride.phone})</a>
-                        <button class="btn-book" onclick="bookSeat('${ride.id}')" ${ride.seats <= 0 ? 'disabled' : ''}>${ride.seats <= 0 ? 'Doly' : 'Orun Sargamak'}</button>
                         ${currentUser && currentUser.uid === ride.userId ? `<button class="btn-delete" onclick="deleteRide('${ride.id}')">🗑️ Pozmak</button>` : ''}
                     </div>
                 </div>
@@ -1084,6 +1081,19 @@ ${ride.isProDriver ? `<span style="color:var(--accent-gold); font-size: 11px; ma
             submitBtn.disabled = true;
             submitBtn.innerText = "Yglan goşulýar...";
 
+            if (currentUser) {
+                try {
+                    const existingRides = await db.collection("rides").where("userId", "==", currentUser.uid).get();
+                    const batch = db.batch();
+                    existingRides.forEach(doc => {
+                        batch.delete(doc.ref);
+                    });
+                    await batch.commit();
+                } catch(err) {
+                    console.error("Öňki yglany pozmakda ýalňyşlyk:", err);
+                }
+            }
+
             const newRide = {
                 userId: currentUser ? currentUser.uid : null,
                 userPhoto: currentUser ? currentUser.photoURL : null,
@@ -1092,7 +1102,6 @@ ${ride.isProDriver ? `<span style="color:var(--accent-gold); font-size: 11px; ma
                 from: document.getElementById('cityFrom').value,
                 to: document.getElementById('cityTo').value,
                 time: document.getElementById('rideTime').value,
-                seats: parseInt(document.getElementById('seatsAvailable').value),
                 price: document.getElementById('pricePerSeat').value,
                 car: document.getElementById('carModel').value,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -1102,7 +1111,7 @@ ${ride.isProDriver ? `<span style="color:var(--accent-gold); font-size: 11px; ma
             try {
                 await db.collection("rides").add(newRide);
                 document.getElementById('rideForm').reset();
-                alert("✅ Yglanyňyz üstünlikli goşuldy!");
+                alert("✅ Täze yglanyňyz goşuldy! Öňki yglanyňyz avtomatiki pozuldy we VIP dereje täze yglana geçirildi.");
                 switchTab('searchView');
             } catch (error) {
                 alert("Ýalňyşlyk döredi: " + error.message);
@@ -1120,27 +1129,6 @@ ${ride.isProDriver ? `<span style="color:var(--accent-gold); font-size: 11px; ma
                 } catch (error) {
                     alert("Pozmakda ýalňyşlyk: " + error.message);
                 }
-            }
-        }
-
-        async function bookSeat(docId) {
-            if (!currentUser) {
-                alert("Orun sargamak üçin Google bilen giriň.");
-                loginWithGoogle();
-                return;
-            }
-            try {
-                const rideRef = db.collection("rides").doc(docId);
-                await db.runTransaction(async (transaction) => {
-                    const rideDoc = await transaction.get(rideRef);
-                    if (!rideDoc.exists) throw "Yglan tapylmady.";
-                    const newSeats = rideDoc.data().seats - 1;
-                    if (newSeats < 0) throw "Orun galmady.";
-                    transaction.update(rideRef, { seats: newSeats });
-                });
-                alert("✅ Orun sargaldy. Sürüji bilen habarlaşyň.");
-            } catch (error) {
-                alert("Sargamakda ýalňyşlyk: " + error);
             }
         }
 
