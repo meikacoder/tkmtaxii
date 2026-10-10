@@ -977,7 +977,6 @@ function cleanExpiredRides(rides) {
             if (rideTime < now) {
                 try {
                     await db.collection("rides").doc(ride.id).delete();
-                    console.log("Wagty geçen yglan pozuldy:", ride.id);
                 } catch(e) {
                     console.error("Wagty geçen yglany pozmakda ýalňyşlyk:", e);
                 }
@@ -1134,7 +1133,7 @@ async function handlePostRide(e) {
 }
 
 async function deleteRide(docId) {
-    if (confirm("Bu yglany pozmak restsizwize çynmy?")) {
+    if (confirm("Bu yglany pozmak isleýärçňize çynmy?")) {
         try {
             await db.collection("rides").doc(docId).delete();
             alert("Yglan pozuldy!");
