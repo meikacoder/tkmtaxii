@@ -158,7 +158,7 @@ footer {background-color: var(--panel-bg);border-top: 1px solid var(--border);pa
 </div>
 <div class="form-group">
 <label>Telefon Belgisi</label>
-<input type="tel" id="driverPhone" placeholder="+99365XXXXXX" required>
+<input type="tel" id="driverPhone" placeholder="+9936XXXXXXX" required>
 </div>
 <div class="form-group">
 <label>Nireden</label>
@@ -430,7 +430,6 @@ function closeProModal() { modal.style.display = "none"; }
 
 const adminModal = document.getElementById("adminModal");
 
-// Admin düwmä basylanda ýörite login sahypasyna elter
 function openAdminModal() { 
     window.location.href = "admin-login.html";
 }
@@ -605,6 +604,9 @@ container.innerHTML = ridesToRender.map(ride => {
 const isOwner = currentUser && currentUser.uid === ride.userId;
 // Sessiýada admin giren bolsa islendik yglany pozup biler
 const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('admin') === 'true') {
+    sessionStorage.setItem("isAdminLoggedIn", "true");
+}
 const isAdminLoggedIn = sessionStorage.getItem("isAdminLoggedIn") === "true" || urlParams.get('admin') === 'true';
 
 return `
@@ -623,8 +625,7 @@ ${ride.isProDriver ? `<span style="color:var(--accent-gold); font-size: 11px; ma
 <div>📅 Wagty: <span>${formatDate(ride.time)}</span></div>
 </div>
 <div class="ride-footer">
-<a href="tel:${ride.phone}" class="btn-call">📞 Jaň Etmek (${ride.phone})</a>
-${isOwner || isAdminLoggedIn ? `<button class="btn-delete" onclick="deleteRide('${ride.id}')">🗑️ Pozmak</button>` : ''}
+<a href="tel:${ride.phone}" class="btn-call">📞 Jaň Etmek (${ride.phone})</a>${isOwner || sessionStorage.getItem("isAdminLoggedIn") === "true" ? `<button class="btn-delete" onclick="deleteRide('${ride.id}')">🗑️ Pozmak</button>` : ''}
 </div>
 </div>
 `;
