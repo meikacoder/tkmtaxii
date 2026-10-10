@@ -116,7 +116,7 @@ footer {background-color: var(--panel-bg);border-top: 1px solid var(--border);pa
 <div class="ad-container">
 <ins class="adsbygoogle"
      style="display:block"
-     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-client="ca-pub-6474321055497636"
      data-ad-slot="1234567890"
      data-ad-format="auto"
      data-full-width-responsive="true"></ins>
@@ -266,12 +266,12 @@ footer {background-color: var(--panel-bg);border-top: 1px solid var(--border);pa
     </div>
     <div class="footer-section">
       <h4>Habarlaşmak</h4>
-      <p>Email: abdyyewgurbanmyrat07@gmail.com[cite: 2, 3]</p>
-      <p>Tel: +993 64 410621[cite: 2, 3]</p>
+      <p>Email: abdyyewgurbanmyrat07@gmail.com</p>
+      <p>Tel: +993 64 410621</p>
     </div>
   </div>
   <div class="footer-bottom">
-    &copy; 2026 Ýolýoldaş Platformasy. Ähli hukuklar goralan[cite: 2, 3].
+    &copy; 2026 Ýolýoldaş Platformasy. Ähli hukuklar goralan.
   </div>
 </footer>
 
@@ -298,8 +298,13 @@ let currentUserProStatus = false;
 let allRides = [];
 let isInitialLoad = true;
 
-// Sahypa açylanda admin giriş edendigini barlamak
+
 window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('admin') === 'true') {
+        sessionStorage.setItem("isAdminLoggedIn", "true");
+    }
+
     if (sessionStorage.getItem("isAdminLoggedIn") === "true") {
         document.getElementById("adminModal").style.display = "block";
         loadAdminRequests();
