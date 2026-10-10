@@ -153,7 +153,7 @@ function handleAdminLogin(e) {
   if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase() && pass === ADMIN_PASSWORD) {
     sessionStorage.setItem("isAdminLoggedIn", "true");
     alert("✅ Admin paneline üstünlikli girildi!");
-    window.location.href = "index.html";
+    window.location.href = "index.html"; // URL-e ?admin=true ýazman göni index.html-e gidýäris
   } else {
     errorMsg.style.display = "block";
   }
