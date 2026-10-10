@@ -150,10 +150,10 @@ function handleAdminLogin(e) {
   const pass = document.getElementById("adminPassword").value.trim();
   const errorMsg = document.getElementById("errorMsg");
 
-  if (email === ADMIN_EMAIL && pass === ADMIN_PASSWORD) {
+  if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase() && pass === ADMIN_PASSWORD) {
     sessionStorage.setItem("isAdminLoggedIn", "true");
     alert("✅ Admin paneline üstünlikli girildi!");
-    window.location.href = "index.html?admin=true";
+    window.location.href = "index.html";
   } else {
     errorMsg.style.display = "block";
   }
