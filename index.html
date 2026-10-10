@@ -278,7 +278,6 @@ footer {background-color: var(--panel-bg);border-top: 1px solid var(--border);pa
 <script>
 const MY_PAYMENT_PHONE = "+99364410621"; 
 const ADMIN_EMAIL = "200707@gmail.com"; 
-const ADMIN_PASSWORD = "20+90ye12m";
 
 const GOOGLE_CLIENT_ID = "546239368897-g4431p56u5lcddns6h15autv0cjtdp7v.apps.googleusercontent.com";
 const firebaseConfig = {
@@ -298,6 +297,14 @@ let currentUser = null;
 let currentUserProStatus = false;
 let allRides = [];
 let isInitialLoad = true;
+
+// Sahypa açylanda admin giriş edendigini barlamak
+window.addEventListener('DOMContentLoaded', () => {
+    if (sessionStorage.getItem("isAdminLoggedIn") === "true") {
+        document.getElementById("adminModal").style.display = "block";
+        loadAdminRequests();
+    }
+});
 
 if ("Notification" in window && Notification.permission !== "granted") {
     Notification.requestPermission();
@@ -418,25 +425,15 @@ function closeProModal() { modal.style.display = "none"; }
 
 const adminModal = document.getElementById("adminModal");
 
+// Admin düwmä basylanda ýörite login sahypasyna elter
 function openAdminModal() { 
-    const enteredEmail = prompt("Admin email adresini giriziň:");
-    if (enteredEmail === null) return;
-    
-    if (enteredEmail.trim().toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
-        alert("❌ Ýalňyş admin emaýly!");
-        return;
-    }
-
-    const enteredCode = prompt("Admin paroly giriziň:");
-    if (enteredCode === ADMIN_PASSWORD) {
-        adminModal.style.display = "block"; 
-        loadAdminRequests();
-    } else if (enteredCode !== null) {
-        alert("❌ Ýalňyş parol! Giriş gadagan edildi.");
-    }
+    window.location.href = "admin_login.html";
 }
 
-function closeAdminModal() { adminModal.style.display = "none"; }
+function closeAdminModal() { 
+    adminModal.style.display = "none"; 
+    sessionStorage.removeItem("isAdminLoggedIn"); // Çykanynda sessiýany arassalaýarys
+}
 
 window.onclick = function(event) { 
     if (event.target == modal) { closeProModal(); } 
@@ -601,7 +598,8 @@ return;
 } 
 container.innerHTML = ridesToRender.map(ride => {
 const isOwner = currentUser && currentUser.uid === ride.userId;
-const isAdminUser = currentUser && currentUser.email && currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+// Sessiýada admin giren bolsa islendik yglany pozup biler
+const isAdminLoggedIn = sessionStorage.getItem("isAdminLoggedIn") === "true";
 
 return `
 <div class="ride-card ${ride.isProDriver ? 'pro-ride' : ''}">
@@ -620,7 +618,7 @@ ${ride.isProDriver ? `<span style="color:var(--accent-gold); font-size: 11px; ma
 </div>
 <div class="ride-footer">
 <a href="tel:${ride.phone}" class="btn-call">📞 Jaň Etmek (${ride.phone})</a>
-${isOwner || isAdminUser ? `<button class="btn-delete" onclick="deleteRide('${ride.id}')">🗑️ Pozmak</button>` : ''}
+${isOwner || isAdminLoggedIn ? `<button class="btn-delete" onclick="deleteRide('${ride.id}')">🗑️ Pozmak</button>` : ''}
 </div>
 </div>
 `;
@@ -714,4 +712,3 @@ console.error("Auto bump error:", e);
 </script>
 </body>
 </html>
-
