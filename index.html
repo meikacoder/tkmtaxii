@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ýolýoldaş — Şäherara Arzan Ýol we Taksi</title>
 <link rel="icon" type="image/png" href="logo.png">
-<meta name="description" content="Ýolýoldaş — Türkmenistanyň şäherara ugurlary boýunça amatly, tiz and ynamly taksi hem-de ýolagçy gözleg platformasy.">
+<meta name="description" content="Ýolýoldaş — Türkmenistanyň şäherara ugurlary boýunça amatly, tiz we ynamly taksi hem-de ýolagçy gözleg platformasy.">
 <meta name="keywords" content="yolyoldas, ýolýoldaş, taksi turkmenistan, asgabat mary taksi, lebab dasoguz taksi, arzan yol">
 <meta name="author" content="Meika">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3D2G7ZK48"></script>
@@ -419,7 +419,15 @@ function closeProModal() { modal.style.display = "none"; }
 const adminModal = document.getElementById("adminModal");
 
 function openAdminModal() { 
-    const enteredCode = prompt("Admin paneline girmek üçin paroly giriziň:");
+    const enteredEmail = prompt("Admin email adresini giriziň:");
+    if (enteredEmail === null) return;
+    
+    if (enteredEmail.trim().toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+        alert("❌ Ýalňyş admin emaýly!");
+        return;
+    }
+
+    const enteredCode = prompt("Admin paroly giriziň:");
     if (enteredCode === ADMIN_PASSWORD) {
         adminModal.style.display = "block"; 
         loadAdminRequests();
@@ -591,7 +599,11 @@ if (!ridesToRender || ridesToRender.length === 0) {
 container.innerHTML = `<div class="empty-msg">⚠️ Yglan tapylmady.</div>`;
 return;
 } 
-container.innerHTML = ridesToRender.map(ride => `
+container.innerHTML = ridesToRender.map(ride => {
+const isOwner = currentUser && currentUser.uid === ride.userId;
+const isAdminUser = currentUser && currentUser.email && currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+
+return `
 <div class="ride-card ${ride.isProDriver ? 'pro-ride' : ''}">
 <div class="ride-header">
 <span class="route-title">${ride.from} ➔ ${ride.to}</span>
@@ -608,10 +620,11 @@ ${ride.isProDriver ? `<span style="color:var(--accent-gold); font-size: 11px; ma
 </div>
 <div class="ride-footer">
 <a href="tel:${ride.phone}" class="btn-call">📞 Jaň Etmek (${ride.phone})</a>
-${currentUser && (currentUser.uid === ride.userId || currentUser.email === ADMIN_EMAIL) ? `<button class="btn-delete" onclick="deleteRide('${ride.id}')">🗑️ Pozmak</button>` : ''}
+${isOwner || isAdminUser ? `<button class="btn-delete" onclick="deleteRide('${ride.id}')">🗑️ Pozmak</button>` : ''}
 </div>
 </div>
-`).join('');
+`;
+}).join('');
 }
 
 function formatDate(dateStr) {
@@ -701,3 +714,4 @@ console.error("Auto bump error:", e);
 </script>
 </body>
 </html>
+
