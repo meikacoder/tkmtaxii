@@ -604,7 +604,8 @@ return;
 container.innerHTML = ridesToRender.map(ride => {
 const isOwner = currentUser && currentUser.uid === ride.userId;
 // Sessiýada admin giren bolsa islendik yglany pozup biler
-const isAdminLoggedIn = sessionStorage.getItem("isAdminLoggedIn") === "true";
+const urlParams = new URLSearchParams(window.location.search);
+const isAdminLoggedIn = sessionStorage.getItem("isAdminLoggedIn") === "true" || urlParams.get('admin') === 'true';
 
 return `
 <div class="ride-card ${ride.isProDriver ? 'pro-ride' : ''}">
