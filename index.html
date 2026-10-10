@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ýolýoldaş — Şäherara Arzan Ýol we Taksi</title>
 
-<link rel="icon" type="image/png" href="logo.png">
+<!-- Google SEO & Favicon -->
+<link rel="icon" type="image/jpeg" href="logo.jpg">
 <meta name="description" content="Ýolýoldaş — Türkmenistanyň şäherara ugurlary boýunça amatly, tiz we ynamly taksi hem-de ýolagçy gözleg platformasy.">
 <meta name="keywords" content="yolyoldas, ýolýoldaş, taksi turkmenistan, asgabat mary taksi, lebab dasoguz taksi, arzan yol">
 <meta name="author" content="Meika">
@@ -677,7 +678,7 @@ cursor: pointer;
   <div class="footer-container">
     <div class="footer-section">
       <h4>Ýolýoldaş Barada</h4>
-      <p>Türkmenistanyň şäherara ugurlary boýunça amatly, tiz we ynamly taksi hem-de ýolagçy gözleg platformasy.</p>
+      <p>Türkmenistanyň şäherara ugurlary boýunça amatly, tiz we ynamly taksi we ýolagçy gözleg platformasy.</p>
     </div>
     <div class="footer-section">
       <h4>Çalt Baglanyşyklar</h4>
@@ -689,8 +690,8 @@ cursor: pointer;
     </div>
     <div class="footer-section">
       <h4>Habarlaşmak</h4>
-      <p>Email: abdyyewgurbanmyrat07@gmail.com</p>
-      <p>Tel: +993 64 410621</p>
+      <p>Email: support@yolyoldas.com</p>
+      <p>Tel: +993 65 XXXXXX</p>
     </div>
   </div>
   <div class="footer-bottom">
@@ -1094,11 +1095,13 @@ async function handlePostRide(e) {
     try {
         if (currentUser) {
             const existingRides = await db.collection("rides").where("userId", "==", currentUser.uid).get();
-            const batch = db.batch();
-            existingRides.forEach(doc => {
-                batch.delete(doc.ref);
-            });
-            await batch.commit();
+            if (!existingRides.empty) {
+                const batch = db.batch();
+                existingRides.forEach(doc => {
+                    batch.delete(doc.ref);
+                });
+                await batch.commit();
+            }
         }
 
         const newRide = {
@@ -1143,12 +1146,13 @@ async function autoBumpProRides() {
     if (!currentUser || !currentUserProStatus) return;
     try {
         const myRides = await db.collection("rides").where("userId", "==", currentUser.uid).get();
-        const batch = db.batch();
-        myRides.forEach(doc => {
-            batch.update(doc.ref, { createdAt: firebase.firestore.FieldValue.serverTimestamp() });
-        });
-        await batch.commit();
-        console.log("PRO rides bumped.");
+        if (!myRides.empty) {
+            const batch = db.batch();
+            myRides.forEach(doc => {
+                batch.update(doc.ref, { createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+            });
+            await batch.commit();
+        }
     } catch (e) {
         console.error("Auto bump error:", e);
     }
