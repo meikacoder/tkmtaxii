@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ýolýoldaş — Şäherara Arzan Ýol we Taksi</title>
 <link rel="icon" type="image/png" href="logo.png">
-<meta name="description" content="Ýolýoldaş — Türkmenistanyň şäherara ugurlary boýunça amatly, tiz we ynamly taksi hem-de ýolagçy gözleg platformasy.">
+<meta name="description" content="Ýolýoldaş — Türkmenistanyň şäherara ugurlary boýunça amatly, tiz and ynamly taksi hem-de ýolagçy gözleg platformasy.">
 <meta name="keywords" content="yolyoldas, ýolýoldaş, taksi turkmenistan, asgabat mary taksi, lebab dasoguz taksi, arzan yol">
 <meta name="author" content="Meika">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3D2G7ZK48"></script>
@@ -98,7 +98,7 @@ footer {background-color: var(--panel-bg);border-top: 1px solid var(--border);pa
 <header>
 <div class="logo-box">
 <h1>ÝOLÝOLDAŞ</h1>
-<p>Şäherara amatly ýolagçy gatnawy</p>
+<p>Şäherara amatly ýolagçy gatnawy[cite: 3]</p>
 </div>
 <div class="auth-container" id="authBox">
 <button class="btn-admin" id="adminBtn" onclick="openAdminModal()">Admin Panel</button>
@@ -254,7 +254,7 @@ footer {background-color: var(--panel-bg);border-top: 1px solid var(--border);pa
 <div class="footer-container">
     <div class="footer-section">
       <h4>Ýolýoldaş Barada</h4>
-      <p>Türkmenistanyň şäherara ugurlary boýunça amatly, tiz we ynamly taksi we ýolagçy gözleg platformasy.</p>
+      <p>Türkmenistanyň şäherara ugurlary boýunça amatly, tiz we ynamly taksi we ýolagçy gözleg platformasy[cite: 3].</p>
     </div>
     <div class="footer-section">
       <h4>Çalt Baglanyşyklar</h4>
@@ -266,12 +266,12 @@ footer {background-color: var(--panel-bg);border-top: 1px solid var(--border);pa
     </div>
     <div class="footer-section">
       <h4>Habarlaşmak</h4>
-      <p>Email: abdyyewgurbanmyrat07@gmail.com[cite: 2]</p>
-      <p>Tel: +993 64 410621[cite: 2]</p>
+      <p>Email: abdyyewgurbanmyrat07@gmail.com[cite: 2, 3]</p>
+      <p>Tel: +993 64 410621[cite: 2, 3]</p>
     </div>
   </div>
   <div class="footer-bottom">
-    &copy; 2026 Ýolýoldaş Platformasy. Ähli hukuklar goralan[cite: 2].
+    &copy; 2026 Ýolýoldaş Platformasy. Ähli hukuklar goralan[cite: 2, 3].
   </div>
 </footer>
 
@@ -386,7 +386,6 @@ authNotice.innerHTML = `
 }
 } 
 
-// Giriş wagty ýalňyşlyk döretmez ýaly gowulandyrylan funksiýa
 function loginWithGoogle() {
     const loginBtn = document.getElementById('loginBtn');
     if (loginBtn) loginBtn.disabled = true;
@@ -609,7 +608,7 @@ ${ride.isProDriver ? `<span style="color:var(--accent-gold); font-size: 11px; ma
 </div>
 <div class="ride-footer">
 <a href="tel:${ride.phone}" class="btn-call">📞 Jaň Etmek (${ride.phone})</a>
-${currentUser && currentUser.uid === ride.userId ? `<button class="btn-delete" onclick="deleteRide('${ride.id}')">🗑️ Pozmak</button>` : ''}
+${currentUser && (currentUser.uid === ride.userId || currentUser.email === ADMIN_EMAIL) ? `<button class="btn-delete" onclick="deleteRide('${ride.id}')">🗑️ Pozmak</button>` : ''}
 </div>
 </div>
 `).join('');
