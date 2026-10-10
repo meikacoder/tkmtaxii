@@ -6,7 +6,7 @@
 <title>Ýolýoldaş — Şäherara Arzan Ýol we Taksi</title>
 
 <!-- Google SEO & Favicon -->
-<link rel="icon" type="image/png" href="logo.png">
+<link rel="icon" type="image/jpeg" href="logo.jpg">
 <meta name="description" content="Ýolýoldaş — Türkmenistanyň şäherara ugurlary boýunça amatly, tiz we ynamly taksi hem-de ýolagçy gözleg platformasy.">
 <meta name="keywords" content="yolyoldas, ýolýoldaş, taksi turkmenistan, asgabat mary taksi, lebab dasoguz taksi, arzan yol">
 <meta name="author" content="Meika">
@@ -678,7 +678,7 @@ cursor: pointer;
   <div class="footer-container">
     <div class="footer-section">
       <h4>Ýolýoldaş Barada</h4>
-      <p>Türkmenistanyň şäherara ugurlary boýunça amatly, tiz we ynamly taksi we ýolagçy gözleg platformasy.</p>
+      <p>Türkmenistanyň şäherara ugurlary boýunça amatly, tiz we ynamly taksi hem-de ýolagçy gözleg platformasy.</p>
     </div>
     <div class="footer-section">
       <h4>Çalt Baglanyşyklar</h4>
@@ -690,8 +690,8 @@ cursor: pointer;
     </div>
     <div class="footer-section">
       <h4>Habarlaşmak</h4>
-      <p>Email: abdyyewgurbanmyrat07@gmail.com</p>
-      <p>Tel: +993 64 410621</p>
+      <p>Email: support@yolyoldas.com</p>
+      <p>Tel: +993 65 XXXXXX</p>
     </div>
   </div>
   <div class="footer-bottom">
@@ -1092,40 +1092,37 @@ async function handlePostRide(e) {
     submitBtn.disabled = true;
     submitBtn.innerText = "Yglan goşulýar...";
 
-    if (currentUser) {
-        try {
+    try {
+        if (currentUser) {
             const existingRides = await db.collection("rides").where("userId", "==", currentUser.uid).get();
             const batch = db.batch();
             existingRides.forEach(doc => {
                 batch.delete(doc.ref);
             });
             await batch.commit();
-        } catch(err) {
-            console.error("Öňki yglany pozmakda ýalňyşlyk:", err);
         }
-    }
 
-    const newRide = {
-        userId: currentUser ? currentUser.uid : null,
-        userPhoto: currentUser ? currentUser.photoURL : null,
-        driver: document.getElementById('driverName').value,
-        phone: document.getElementById('driverPhone').value,
-        from: document.getElementById('cityFrom').value,
-        to: document.getElementById('cityTo').value,
-        time: document.getElementById('rideTime').value,
-        price: document.getElementById('pricePerSeat').value,
-        car: document.getElementById('carModel').value,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        isProDriver: currentUserProStatus
-    };
+        const newRide = {
+            userId: currentUser ? currentUser.uid : null,
+            userPhoto: currentUser ? currentUser.photoURL : null,
+            driver: document.getElementById('driverName').value,
+            phone: document.getElementById('driverPhone').value,
+            from: document.getElementById('cityFrom').value,
+            to: document.getElementById('cityTo').value,
+            time: document.getElementById('rideTime').value,
+            price: document.getElementById('pricePerSeat').value,
+            car: document.getElementById('carModel').value,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            isProDriver: currentUserProStatus
+        };
 
-    try {
         await db.collection("rides").add(newRide);
         document.getElementById('rideForm').reset();
         alert("✅ Täze yglanyňyz üstünlikli goşuldy!");
         switchTab('searchView');
     } catch (error) {
-        alert("Ýalňyşlyk döredi: " + error.message);
+        console.error("Yglan goşulmady:", error);
+        alert("❌ Ýalňyşlyk ýüze çykdy: " + error.message);
     } finally {
         submitBtn.disabled = false;
         submitBtn.innerText = "📢 Yglany Ýaýratmak";
