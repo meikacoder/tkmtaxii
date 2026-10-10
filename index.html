@@ -4,13 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ýolýoldaş — Şäherara Arzan Ýol we Taksi</title>
-
-<!-- Google SEO & Favicon -->
-<link rel="icon" type="image/jpeg" href="logo.jpg">
+<link rel="icon" type="image/png" href="logo.png">
 <meta name="description" content="Ýolýoldaş — Türkmenistanyň şäherara ugurlary boýunça amatly, tiz we ynamly taksi hem-de ýolagçy gözleg platformasy.">
 <meta name="keywords" content="yolyoldas, ýolýoldaş, taksi turkmenistan, asgabat mary taksi, lebab dasoguz taksi, arzan yol">
 <meta name="author" content="Meika">
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3D2G7ZK48"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -18,10 +15,8 @@
   gtag('js', new Date());
   gtag('config', 'G-K3D2G7ZK48');
 </script>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6474321055497636"
-     crossorigin="anonymous"></script> 
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6474321055497636
+crossorigin="anonymous"></script> 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
@@ -333,7 +328,7 @@ gap: 10px;
 margin-top: 5px;
 }
 .btn-call {
-flex: 2;
+flex: 1;
 background-color: var(--accent-green);
 color: #000;
 text-decoration: none;
@@ -342,19 +337,6 @@ padding: 10px;
 border-radius: 8px;
 font-weight: bold;
 font-size: 14px;
-}
-.btn-book {
-flex: 1;
-background-color: var(--accent-blue);
-color: #000;
-border: none;
-border-radius: 8px;
-font-weight: bold;
-cursor: pointer;
-}
-.btn-book:disabled {
-background-color: var(--text-muted);
-cursor: not-allowed;
 }
 .btn-delete {
 background-color: #FF1744;
@@ -525,6 +507,7 @@ cursor: pointer;
 </head>
 <body>
 
+<meta name="google-signin-client_id" content="546239368897-g4431p56u5lcddns6h15autv0cjtdp7v.apps.googleusercontent.com">
 <header>
 <div class="logo-box">
 <h1>ÝOLÝOLDAŞ</h1>
@@ -548,7 +531,7 @@ cursor: pointer;
 <div class="ad-container">
 <ins class="adsbygoogle"
      style="display:block"
-     data-ad-client="ca-pub-6474321055497636"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
      data-ad-slot="1234567890"
      data-ad-format="auto"
      data-full-width-responsive="true"></ins>
@@ -622,11 +605,7 @@ cursor: pointer;
 <label>Gidiljek Wagty</label><input type="datetime-local" id="rideTime" required>
 </div>
 <div class="form-group">
-<label>Boş Ýer Sany</label>
-<input type="number" id="seatsAvailable" min="1" max="8" value="3" required>
-</div>
-<div class="form-group">
-<label>1 Orun Bahasy (TMT)</label>
+<label>Bahasy (TMT)</label>
 <input type="number" id="pricePerSeat" placeholder="50" required>
 </div>
 <div class="form-group">
@@ -679,7 +658,6 @@ cursor: pointer;
 </div>
 </div>
 
-<!-- Admin Panel Modaly -->
 <div id="adminModal" class="modal">
 <div class="modal-content">
 <div class="modal-header">
@@ -708,8 +686,8 @@ cursor: pointer;
     </div>
     <div class="footer-section">
       <h4>Habarlaşmak</h4>
-      <p>Email: support@yolyoldas.com</p>
-      <p>Tel: +993 65 XXXXXX</p>
+      <p>Email: abdyyewgurbanmyrat07@gmail.com</p>
+      <p>Tel: +993 64 410621</p>
     </div>
   </div>
   <div class="footer-bottom">
@@ -722,6 +700,7 @@ const MY_PAYMENT_PHONE = "+99364410621";
 const ADMIN_EMAIL = "200707@gmail.com"; 
 const ADMIN_PASSWORD = "20+90ye12m";
 
+const GOOGLE_CLIENT_ID = "546239368897-g4431p56u5lcddns6h15autv0cjtdp7v.apps.googleusercontent.com";
 const firebaseConfig = {
 apiKey: "AIzaSyDYTMyZxMr_6LsF1f6kNaIVKS5ITrvcMQ4",
 authDomain: "tkmtaxi-a99f4.firebaseapp.com",
@@ -1044,112 +1023,88 @@ ${ride.isProDriver ? `<span style="color:var(--accent-gold); font-size: 11px; ma
 <div class="ride-details">
 <div>🚘 Maşyn: <span>${ride.car || 'Görkezilmän'}</span></div>
 <div>📅 Wagty: <span>${formatDate(ride.time)}</span></div>
-<div>💺 Boş ýer: <span>${ride.seats} adam</span></div>
 </div>
 <div class="ride-footer">
-                        <a href="tel:${ride.phone}" class="btn-call">📞 Jaň Etmek (${ride.phone})</a>
-                        <button class="btn-book" onclick="bookSeat('${ride.id}')" ${ride.seats <= 0 ? 'disabled' : ''}>${ride.seats <= 0 ? 'Doly' : 'Orun Sargamak'}</button>
-                        ${currentUser && currentUser.uid === ride.userId ? `<button class="btn-delete" onclick="deleteRide('${ride.id}')">🗑️ Pozmak</button>` : ''}
-                    </div>
-                </div>
-            `).join('');
+    <a href="tel:${ride.phone}" class="btn-call">📞 Jaň Etmek (${ride.phone})</a>
+    ${currentUser && currentUser.uid === ride.userId ? `<button class="btn-delete" onclick="deleteRide('${ride.id}')">🗑️ Pozmak</button>` : ''}
+</div>
+</div>
+`).join('');
+}
+
+function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    return `${d.getDate().toString().padStart(2, '0')}.${(d.getMonth() + 1).toString().padStart(2, '0')} | ${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
+}
+
+function filterRides() {
+    const from = document.getElementById('filterFrom').value;
+    const to = document.getElementById('filterTo').value;
+
+    const filtered = allRides.filter(r => (!from || r.from === from) && (!to || r.to === to));
+    renderRides(filtered);
+}
+
+async function handlePostRide(e) {
+    e.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Yglan goşulýar...";
+
+    const newRide = {
+        userId: currentUser ? currentUser.uid : null,
+        userPhoto: currentUser ? currentUser.photoURL : null,
+        driver: document.getElementById('driverName').value,
+        phone: document.getElementById('driverPhone').value,
+        from: document.getElementById('cityFrom').value,
+        to: document.getElementById('cityTo').value,
+        time: document.getElementById('rideTime').value,
+        price: document.getElementById('pricePerSeat').value,
+        car: document.getElementById('carModel').value,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        isProDriver: currentUserProStatus
+    };
+
+    try {
+        await db.collection("rides").add(newRide);
+        document.getElementById('rideForm').reset();
+        alert("✅ Yglanyňyz üstünlikli goşuldy!");
+        switchTab('searchView');
+    } catch (error) {
+        alert("Ýalňyşlyk döredi: " + error.message);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "📢 Yglany Ýaýratmak";
+    }
+}
+
+async function deleteRide(docId) {
+    if (confirm("Bu yglany pozmak isleýärçňize çynmy?")) {
+        try {
+            await db.collection("rides").doc(docId).delete();
+            alert("Yglan pozuldy!");
+        } catch (error) {
+            alert("Pozmakda ýalňyşlyk: " + error.message);
         }
+    }
+}
 
-        function formatDate(dateStr) {
-            if (!dateStr) return '';
-            const d = new Date(dateStr);
-            return `${d.getDate().toString().padStart(2, '0')}.${(d.getMonth() + 1).toString().padStart(2, '0')} | ${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
-        }
-
-        function filterRides() {
-            const from = document.getElementById('filterFrom').value;
-            const to = document.getElementById('filterTo').value;
-
-            const filtered = allRides.filter(r => (!from || r.from === from) && (!to || r.to === to));
-            renderRides(filtered);
-        }
-
-        async function handlePostRide(e) {
-            e.preventDefault();
-
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.innerText = "Yglan goşulýar...";
-
-            const newRide = {
-                userId: currentUser ? currentUser.uid : null,
-                userPhoto: currentUser ? currentUser.photoURL : null,
-                driver: document.getElementById('driverName').value,
-                phone: document.getElementById('driverPhone').value,
-                from: document.getElementById('cityFrom').value,
-                to: document.getElementById('cityTo').value,
-                time: document.getElementById('rideTime').value,
-                seats: parseInt(document.getElementById('seatsAvailable').value),
-                price: document.getElementById('pricePerSeat').value,
-                car: document.getElementById('carModel').value,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                isProDriver: currentUserProStatus
-            };
-
-            try {
-                await db.collection("rides").add(newRide);
-                document.getElementById('rideForm').reset();
-                alert("✅ Yglanyňyz üstünlikli goşuldy!");
-                switchTab('searchView');
-            } catch (error) {
-                alert("Ýalňyşlyk döredi: " + error.message);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerText = "📢 Yglany Ýaýratmak";
-            }
-        }
-
-        async function deleteRide(docId) {
-            if (confirm("Bu yglany pozmak restsizwize çynmy?")) {
-                try {
-                    await db.collection("rides").doc(docId).delete();
-                    alert("Yglan pozuldy!");
-                } catch (error) {
-                    alert("Pozmakda ýalňyşlyk: " + error.message);
-                }
-            }
-        }
-
-        async function bookSeat(docId) {
-            if (!currentUser) {
-                alert("Orun sargamak üçin Google bilen giriň.");
-                loginWithGoogle();
-                return;
-            }
-            try {
-                const rideRef = db.collection("rides").doc(docId);
-                await db.runTransaction(async (transaction) => {
-                    const rideDoc = await transaction.get(rideRef);
-                    if (!rideDoc.exists) throw "Yglan tapylmady.";
-                    const newSeats = rideDoc.data().seats - 1;
-                    if (newSeats < 0) throw "Orun galmady.";
-                    transaction.update(rideRef, { seats: newSeats });
-                });
-                alert("✅ Orun sargaldy. Sürüji bilen habarlaşyň.");
-            } catch (error) {
-                alert("Sargamakda ýalňyşlyk: " + error);
-            }
-        }
-
-        async function autoBumpProRides() {
-            if (!currentUser || !currentUserProStatus) return;
-            try {
-                const myRides = await db.collection("rides").where("userId", "==", currentUser.uid).get();
-                const batch = db.batch();
-                myRides.forEach(doc => {
-                    batch.update(doc.ref, { createdAt: firebase.firestore.FieldValue.serverTimestamp() });
-                });
-                await batch.commit();
-                console.log("PRO rides bumped.");
-            } catch (e) {
-                console.error("Auto bump error:", e);
-            }
-        }
+async function autoBumpProRides() {
+    if (!currentUser || !currentUserProStatus) return;
+    try {
+        const myRides = await db.collection("rides").where("userId", "==", currentUser.uid).get();
+        const batch = db.batch();
+        myRides.forEach(doc => {
+            batch.update(doc.ref, { createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+        });
+        await batch.commit();
+        console.log("PRO rides bumped.");
+    } catch (e) {
+        console.error("Auto bump error:", e);
+    }
+}
 </script>
 </body>
 </html>
