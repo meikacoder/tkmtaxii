@@ -15,515 +15,85 @@
   gtag('js', new Date());
   gtag('config', 'G-K3D2G7ZK48');
 </script>
-
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6474321055497636"
      crossorigin="anonymous"></script> 
-
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
 <style>
-:root {
---bg-main: #0B0F19;
---panel-bg: #151D2A;
---card-bg: #1E293B;
---accent-green: #00E676;
---accent-blue: #00E5FF;
---accent-gold: #FFD700;
---text-light: #F8FAFC;
---text-muted: #94A3B8;
---border: #334155;
-} 
-*{
-box-sizing: border-box;
-margin: 0;
-padding: 0;
-font-family: sans-serif;
-} 
-body {
-background-color: var(--bg-main);
-color: var(--text-light);
-display: flex;
-flex-direction: column;
-min-height: 100vh;
-} 
-header {
-background: var(--panel-bg);
-padding: 15px 20px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-border-bottom: 2px solid var(--accent-blue);
-box-shadow: 0 4px 20px rgba(0, 229, 255, 0.15);
-flex-wrap: wrap;
-gap: 10px;
-} 
-.logo-box h1 {
-font-size: 20px;
-color: var(--accent-blue);
-letter-spacing: 1px;
-} 
-.logo-box p {
-font-size: 10px;
-color: var(--text-muted);
-} 
-.auth-container {
-display: flex;
-align-items: center;
-gap: 12px;
-} 
-.btn-pro {
-background: linear-gradient(90deg, #FFD700 0%, #FF9100 100%);
-color: #000;
-border: none;
-padding: 9px 16px;
-border-radius: 8px;
-font-weight: bold;
-font-size: 13px;
-cursor: pointer;
-transition: transform 0.2s;
-}
-.btn-pro:hover {
-transform: scale(1.05);
-} 
-.btn-admin {
-background: #FF1744;
-color: #fff;
-border: none;
-padding: 9px 16px;
-border-radius: 8px;
-font-weight: bold;
-font-size: 13px;
-cursor: pointer;
-}
-.btn-google {
-background-color: #ffffff;
-color: #000000;
-border: none;
-padding: 9px 16px;
-border-radius: 8px;
-font-weight: 600;
-font-size: 13px;
-cursor: pointer;
-display: flex;
-align-items: center;
-gap: 8px;
-transition: background 0.2s;
-} 
-.btn-google:hover {
-background-color: #e6e6e6;
-} 
-.user-profile {
-display: flex;
-align-items: center;
-gap: 10px;
-background: var(--card-bg);
-padding: 6px 12px;
-border-radius: 30px;
-border: 1px solid var(--border);
-} 
-.user-avatar {
-width: 32px;
-height: 32px;
-border-radius: 50%;
-object-fit: cover;
-border: 2px solid var(--accent-green);
-} 
-.user-name {
-font-size: 13px;
-font-weight: bold;
-} 
-.btn-logout {
-background: rgba(255, 23, 68, 0.2);
-color: #FF1744;
-border: 1px solid #FF1744;
-padding: 5px 10px;
-border-radius: 15px;
-font-size: 11px;
-cursor: pointer;
-font-weight: bold;
-} 
-.container {
-max-width: 900px;
-margin: 20px auto;
-width: 95%;
-flex: 1;
-} 
-.nav-tabs {
-display: flex;
-gap: 10px;
-margin-bottom: 20px;
-} 
-.tab-btn {
-flex: 1;
-padding: 12px;
-background-color: var(--panel-bg);
-border: 1px solid var(--border);
-color: var(--text-light);
-font-weight: bold;
-font-size: 14px;
-border-radius: 10px;
-cursor: pointer;
-transition: all 0.3s ease;
-} 
-.tab-btn.active {
-background-color: var(--accent-blue);
-color: #000;
-border-color: var(--accent-blue);
-box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
-} 
-.view-section {
-display: none;
-} 
-.view-section.active {
-display: block;
-} 
-.form-card {
-background-color: var(--panel-bg);
-border: 1px solid var(--border);
-border-radius: 15px;
-padding: 20px;
-box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-} 
-.form-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-gap: 15px;
-margin-bottom: 15px;
-} 
-.form-group {
-display: flex;
-flex-direction: column;
-gap: 6px;
-} 
-.form-group label {
-font-size: 12px;
-color: var(--text-muted);
-text-transform: uppercase;
-font-weight: 600;
-} 
-input, select {
-background-color: var(--card-bg);
-border: 1px solid var(--border);
-color: var(--text-light);
-padding: 12px;
-border-radius: 8px;
-font-size: 14px;
-outline: none;
-} 
-input:focus, select:focus {
-border-color: var(--accent-green);
-}
-.btn-submit {
-width: 100%;
-padding: 14px;
-background: linear-gradient(90deg, #00E676 0%, #00B0FF 100%);
-border: none;
-color: #000;
-font-size: 16px;
-font-weight: bold;
-border-radius: 10px;
-cursor: pointer;
-text-transform: uppercase;
-} 
-.filter-box {
-background-color: var(--panel-bg);
-border-radius: 12px;
-padding: 15px;
-margin-bottom: 20px;
-display: flex;
-flex-wrap: wrap;
-gap: 10px;
-align-items: center;
-border: 1px solid var(--border);
-} 
-.filter-box select {
-flex: 1;
-min-width: 140px;
-} 
-.btn-add-taxi-trigger {
-background: linear-gradient(90deg, #00E676 0%, #00B0FF 100%);
-color: #000;
-border: none;
-padding: 12px 20px;
-border-radius: 8px;
-font-weight: bold;
-font-size: 14px;
-cursor: pointer;
-transition: transform 0.2s, box-shadow 0.2s;
-white-space: nowrap;
-}
-.btn-add-taxi-trigger:hover {
-transform: scale(1.02);
-box-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
-}
-.rides-list {
-display: flex;
-flex-direction: column;
-gap: 15px;
-}
-.ride-card {
-background-color: var(--panel-bg);
-border: 1px solid var(--border);
-border-left: 5px solid var(--accent-green);
-border-radius: 12px;
-padding: 18px;
-display: flex;
-flex-direction: column;
-gap: 12px;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-transition: border-color 0.3s;
-}
-.ride-card.pro-ride {
-border-color: var(--accent-gold);
-border-left-width: 6px;
-}
-.ride-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-} 
-.route-title {
-font-size: 18px;
-font-weight: bold;
-color: var(--accent-blue);
-}
-.price-tag {
-background-color: rgba(0, 230, 118, 0.15);
-color: var(--accent-green);
-padding: 6px 12px;
-border-radius: 20px;
-font-weight: bold;
-font-size: 16px;
-border: 1px solid var(--accent-green);
-}
-.driver-info {
-display: flex;
-align-items: center;
-gap: 8px;
-margin-bottom: 4px;
-}
-.driver-avatar {
-width: 24px;
-height: 24px;
-border-radius: 50%;
-}
-.ride-details {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-gap: 10px;
-font-size: 13px;
-color: var(--text-muted);
-background-color: var(--card-bg);
-padding: 10px;
-border-radius: 8px;
-}
-.ride-details span {
-color: var(--text-light);
-font-weight: 500;
-} 
-.ride-footer {
-display: flex;
-gap: 10px;
-margin-top: 5px;
-}
-.btn-call {
-flex: 2;
-background-color: var(--accent-green);
-color: #000;
-text-decoration: none;
-text-align: center;
-padding: 10px;
-border-radius: 8px;
-font-weight: bold;
-font-size: 14px;
-}
-.btn-book {
-flex: 1;
-background-color: var(--accent-blue);
-color: #000;
-border: none;
-border-radius: 8px;
-font-weight: bold;
-cursor: pointer;
-}
-.btn-book:disabled {
-background-color: var(--text-muted);
-cursor: not-allowed;
-}
-.btn-delete {
-background-color: #FF1744;
-color: #fff;
-border: none;
-padding: 10px 15px;
-border-radius: 8px;
-cursor: pointer;
-font-weight: bold;
-}
-.empty-msg {
-text-align: center;
-padding: 40px;
-color: var(--text-muted);
-font-size: 15px;
-}
-.auth-warning {
-background-color: rgba(255, 171, 0, 0.15);
-border: 1px solid #FFAB00;
-color: #FFD54F;
-padding: 12px;
-border-radius: 8px;
-font-size: 13px;
-margin-bottom: 15px;
-text-align: center;
-} 
-
-/* AdSense Container Style */
-.ad-container {
-margin: 20px 0;
-text-align: center;
-background: var(--panel-bg);
-border: 1px dashed var(--border);
-padding: 10px;
-border-radius: 8px;
-}
-
-/* Footer Style */
-footer {
-background-color: var(--panel-bg);
-border-top: 1px solid var(--border);
-padding: 25px 20px;
-margin-top: 40px;
-color: var(--text-muted);
-font-size: 13px;
-}
-.footer-container {
-max-width: 900px;
-margin: 0 auto;
-display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
-gap: 20px;
-}
-.footer-section {
-flex: 1;
-min-width: 200px;
-}
-.footer-section h4 {
-color: var(--accent-blue);
-margin-bottom: 10px;
-font-size: 15px;
-}
-.footer-section ul {
-list-style: none;
-}
-.footer-section ul li {
-margin-bottom: 6px;
-}
-.footer-section a {
-color: var(--text-muted);
-text-decoration: none;
-transition: color 0.2s;
-}
-.footer-section a:hover {
-color: var(--accent-green);
-}
-.footer-bottom {
-text-align: center;
-margin-top: 20px;
-padding-top: 15px;
-border-top: 1px solid var(--border);
-font-size: 12px;
-}
-
-.modal {
-display: none;
-position: fixed;
-z-index: 1000;
-left: 0;
-top: 0;
-width: 100%;
-height: 100%;
-overflow: auto;
-background-color: rgba(0,0,0,0.6);
-backdrop-filter: blur(3px);
-}
-.modal-content {
-background-color: var(--panel-bg);
-margin: 10% auto;
-padding: 25px;
-border: 1px solid var(--accent-gold);
-border-radius: 15px;
-width: 90%;
-max-width: 500px;
-color: var(--text-light);
-}
-.modal-header {
-font-size: 18px;
-color: var(--accent-gold);
-margin-bottom: 15px;
-display: flex;
-justify-content: space-between;
-}
-.close {
-color: var(--text-muted);
-cursor: pointer;
-font-size: 20px;
-}
-.pro-plans {
-display: flex;
-flex-direction: column;
-gap: 10px;
-}
-.plan-card {
-background: var(--card-bg);
-border: 1px solid var(--border);
-padding: 15px;
-border-radius: 10px;
-cursor: pointer;
-transition: border-color 0.2s;
-}
-.plan-card:hover {
-border-color: var(--accent-blue);
-}
-.plan-header {
-font-weight: bold;
-display: flex;
-justify-content: space-between;
-color: var(--text-light);
-}
-.plan-price {
-color: var(--accent-green);
-}
-.plan-desc {
-font-size: 12px;
-color: var(--text-muted);
-margin-top: 5px;
-}
-.admin-item {
-background: var(--card-bg);
-padding: 12px;
-border-radius: 8px;
-margin-bottom: 10px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-border: 1px solid var(--border);
-}
-.btn-approve {
-background: var(--accent-green);
-color: #000;
-border: none;
-padding: 8px 12px;
-border-radius: 6px;
-font-weight: bold;
-cursor: pointer;
-}
+:root {--bg-main: #0B0F19;--panel-bg: #151D2A;--card-bg: #1E293B;--accent-green: #00E676;--accent-blue: #00E5FF;--accent-gold: #FFD700;--text-light: #F8FAFC;--text-muted: #94A3B8;--border: #334155;} 
+*{box-sizing: border-box;margin: 0;padding: 0;font-family: sans-serif;} 
+body {background-color: var(--bg-main);color: var(--text-light);display: flex;flex-direction: column; min-height: 100vh;} 
+header {background: var(--panel-bg);padding: 15px 20px;display: flex;justify-content: space-between;align-items: center;border-bottom: 2px solid var(--accent-blue);box-shadow: 0 4px 20px rgba(0, 229, 255, 0.15);flex-wrap: wrap;gap: 10px;} .logo-box h1 {font-size: 20px;color: var(--accent-blue);letter-spacing: 1px;} 
+.logo-box p {font-size: 10px;color: var(--text-muted);} 
+.auth-container {display: flex;align-items: center;gap: 12px;} 
+.btn-pro {background: linear-gradient(90deg, #FFD700 0%, #FF9100 100%);color: #000;border: none;padding: 9px 16px;border-radius: 8px;font-weight: bold;font-size: 13px;cursor: pointer;transition: transform 0.2s;}
+.btn-pro:hover {transform: scale(1.05);} 
+.btn-admin { background: #FF1744;color: #fff;border: none;padding: 9px 16px;border-radius: 8px;font-weight: bold;font-size: 13px;cursor: pointer;display: inline-block !important;} 
+.btn-google{ background-color: #ffffff;color: #000000;border: none;padding: 9px 16px;border-radius: 8px;font-weight: 600;font-size: 13px;cursor: pointer;display: flex;align-items: center;gap: 8px;transition: background 0.2s;} 
+.btn-google:hover {background-color: #e6e6e6;} 
+.user-profile {display: flex;align-items: center;gap: 10px;background: var(--card-bg);padding: 6px 12px;border-radius: 30px;border: 1px solid var(--border);} 
+.user-avatar {width: 32px;height: 32px;border-radius: 50%;object-fit: cover;border: 2px solid var(--accent-green);} 
+.user-name {font-size: 13px;font-weight: bold;} 
+.btn-logout {background: rgba(255, 23, 68, 0.2);color: #FF1744;border: 1px solid #FF1744;padding: 5px 10px;border-radius: 15px;font-size: 11px;cursor: pointer;font-weight: bold;} 
+.container {max-width: 900px;margin: 20px auto;width: 95%;flex: 1;} 
+.nav-tabs {display: flex;gap: 10px;margin-bottom: 20px} 
+.tab-btn { flex: 1;padding: 12px;background-color: var(--panel-bg);border: 1px solid var(--border);color: var(--text-light);font-weight: bold;font-size: 14px;border-radius: 10px;cursor: pointer;transition: all 0.3s ease;} 
+.tab-btn.active {background-color: var(--accent-blue);color: #000;border-color: var(--accent-blue);box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);} 
+.view-section {display: none;} 
+.view-section.active {display: block;} 
+.form-card {background-color: var(--panel-bg);border: 1px solid var(--border);border-radius: 15px;padding: 20px;box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);} 
+.form-grid {display: grid;grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));gap: 15px;margin-bottom: 15px;} 
+.form-group {display: flex;flex-direction: column;gap: 6px;} 
+.form-group label {font-size: 12px;color: var(--text-muted);text-transform: uppercase;font-weight: 600;} 
+input, select {background-color: var(--card-bg);border: 1px solid var(--border);color: var(--text-light);padding: 12px;border-radius: 8px;font-size: 14px;outline: none;} 
+input:focus, select:focus {border-color: var(--accent-green);}
+.btn-submit {width: 100%;padding: 14px;background: linear-gradient(90deg, #00E676 0%, #00B0FF 100%);border: none;color: #000;font-size: 16px;font-weight: bold;border-radius: 10px;cursor: pointer;text-transform: uppercase;} 
+.filter-box {background-color: var(--panel-bg);border-radius: 12px;padding: 15px;margin-bottom: 20px;display: flex;flex-wrap: wrap;gap: 10px;align-items: center;border: 1px solid var(--border);} 
+.filter-box select {flex: 1;min-width: 140px;} 
+.btn-add-taxi-trigger {background: linear-gradient(90deg, #00E676 0%, #00B0FF 100%);color: #000;border: none;padding: 12px 20px;border-radius: 8px;font-weight: bold;font-size: 14px;cursor: pointer;transition: transform 0.2s, box-shadow 0.2s;white-space: nowrap;}
+.btn-add-taxi-trigger:hover {transform: scale(1.02);box-shadow: 0 0 10px rgba(0, 230, 118, 0.4);}
+.rides-list {display: flex;flex-direction: column;gap: 15px;}
+.ride-card {background-color: var(--panel-bg);border: 1px solid var(--border);border-left: 5px solid var(--accent-green);border-radius: 12px;padding: 18px;display: flex;flex-direction: column;gap: 12px;box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);transition: border-color 0.3s;}
+.ride-card.pro-ride {border-color: var(--accent-gold);border-left-width: 6px;}
+.ride-header {display: flex;justify-content: space-between;align-items: center;} 
+.route-title {font-size: 18px;font-weight: bold;color: var(--accent-blue);}
+.price-tag {background-color: rgba(0, 230, 118, 0.15);color: var(--accent-green);padding: 6px 12px;border-radius: 20px;font-weight: bold;font-size: 16px;border: 1px solid var(--accent-green);}
+.driver-info {display: flex;align-items: center;gap: 8px;margin-bottom: 4px;}
+.driver-avatar {width: 24px;height: 24px;border-radius: 50%;}
+.ride-details {display: grid;grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));gap: 10px;font-size: 13px;color: var(--text-muted);background-color: var(--card-bg);padding: 10px;border-radius: 8px;}
+.ride-details span {color: var(--text-light);font-weight: 500;} 
+.ride-footer {display: flex;gap: 10px;margin-top: 5px;}
+.btn-call {flex: 1;background-color: var(--accent-green);color: #000;text-decoration: none;text-align: center;padding: 10px;border-radius: 8px;font-weight: bold;font-size: 14px;}
+.btn-delete {background-color: #FF1744;color: #fff;border: none;padding: 10px 15px;border-radius: 8px;cursor: pointer;font-weight: bold;}
+.empty-msg {text-align: center;padding: 40px;color: var(--text-muted);font-size: 15px;}
+.auth-warning {background-color: rgba(255, 171, 0, 0.15);border: 1px solid #FFAB00;color: #FFD54F;padding: 12px;border-radius: 8px;font-size: 13px;margin-bottom: 15px;text-align: center;} 
+.ad-container {margin: 20px 0;text-align: center;background: var(--panel-bg);border: 1px dashed var(--border);padding: 10px;border-radius: 8px;}
+footer {background-color: var(--panel-bg);border-top: 1px solid var(--border);padding: 25px 20px;margin-top: 40px;color: var(--text-muted);font-size: 13px;}
+.footer-container {max-width: 900px;margin: 0 auto;display: flex;flex-wrap: wrap;justify-content: space-between;gap: 20px;}
+.footer-section {flex: 1;min-width: 200px;}
+.footer-section h4 {color: var(--accent-blue);margin-bottom: 10px;font-size: 15px;}
+.footer-section ul {list-style: none;}
+.footer-section ul li {margin-bottom: 6px;}
+.footer-section a {color: var(--text-muted);text-decoration: none;transition: color 0.2s;}
+.footer-section a:hover {color: var(--accent-green);}
+.footer-bottom {text-align: center;margin-top: 20px;padding-top: 15px;border-top: 1px solid var(--border);font-size: 12px;}
+.modal {display: none;position: fixed;z-index: 1000;left: 0;top: 0;width: 100%;height: 100%;overflow: auto;background-color: rgba(0,0,0,0.6);backdrop-filter: blur(3px);}
+.modal-content {background-color: var(--panel-bg);margin: 10% auto;padding: 25px;border: 1px solid var(--accent-gold);border-radius: 15px;width: 90%;max-width: 500px;color: var(--text-light);}
+.modal-header {font-size: 18px;color: var(--accent-gold);margin-bottom: 15px;display: flex;justify-content: space-between;}
+.close {color: var(--text-muted);cursor: pointer;font-size: 20px;}
+.pro-plans {display: flex;flex-direction: column;gap: 10px;}
+.plan-card {background: var(--card-bg);border: 1px solid var(--border);padding: 15px;border-radius: 10px;cursor: pointer;transition: border-color 0.2s;}
+.plan-card:hover {border-color: var(--accent-blue);}
+.plan-header {font-weight: bold;display: flex;justify-content: space-between;color: var(--text-light);}
+.plan-price {color: var(--accent-green);}
+.plan-desc {font-size: 12px;color: var(--text-muted);margin-top: 5px;}
+.admin-item {background: var(--card-bg);padding: 12px;border-radius: 8px;margin-bottom: 10px;display: flex;justify-content: space-between;align-items: center;border: 1px solid var(--border);}
+.btn-approve {background: var(--accent-green);color: #000;border: none;padding: 8px 12px;border-radius: 6px;font-weight: bold;cursor: pointer;}
 </style>
 </head>
 <body>
-
 <meta name="google-signin-client_id" content="546239368897-g4431p56u5lcddns6h15autv0cjtdp7v.apps.googleusercontent.com">
 <header>
 <div class="logo-box">
@@ -531,24 +101,22 @@ cursor: pointer;
 <p>Şäherara amatly ýolagçy gatnawy</p>
 </div>
 <div class="auth-container" id="authBox">
-<button class="btn-admin" id="adminBtn" style="display:none;" onclick="openAdminModal()">Admin Panel</button>
+<button class="btn-admin" id="adminBtn" onclick="openAdminModal()">Admin Panel</button>
 <button class="btn-pro" id="proBtn" style="display:none;" onclick="openProModal()">PRO Agzalyk</button>
 <button class="btn-google" id="loginBtn" onclick="loginWithGoogle()">
 <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>Google bilen gir
 </button>
 </div>
 </header>
-
 <div class="container">
 <div class="nav-tabs">
 <button class="tab-btn active" onclick="switchTab('searchView')">Taxiler</button>
 <button class="tab-btn" onclick="switchTab('postView')">➕ Taxi Goşmak</button>
 </div>
-
 <div class="ad-container">
 <ins class="adsbygoogle"
      style="display:block"
-     data-ad-client="ca-pub-6474321055497636"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
      data-ad-slot="1234567890"
      data-ad-format="auto"
      data-full-width-responsive="true"></ins>
@@ -556,7 +124,6 @@ cursor: pointer;
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 </div>
-
 <div id="searchView" class="view-section active">
 <div class="filter-box">
 <select id="filterFrom" onchange="filterRides()">
@@ -581,7 +148,6 @@ cursor: pointer;
 </div>
 <div id="ridesContainer" class="rides-list"></div>
 </div>
-
 <div id="postView" class="view-section">
 <div class="form-card"><div id="authNotice"></div>
 <form id="rideForm" onsubmit="handlePostRide(event)">
@@ -622,10 +188,6 @@ cursor: pointer;
 <label>Gidiljek Wagty</label><input type="datetime-local" id="rideTime" required>
 </div>
 <div class="form-group">
-<label>Boş Ýer Sany</label>
-<input type="number" id="seatsAvailable" min="1" max="8" value="3" required>
-</div>
-<div class="form-group">
 <label>1 Orun Bahasy (TMT)</label>
 <input type="number" id="pricePerSeat" placeholder="50" required>
 </div>
@@ -639,7 +201,6 @@ cursor: pointer;
 </div>
 </div>
 </div>
-
 <div id="proModal" class="modal">
 <div class="modal-content">
 <div class="modal-header">
@@ -678,8 +239,6 @@ cursor: pointer;
 </div>
 </div>
 </div>
-
-<!-- Admin Panel Modaly -->
 <div id="adminModal" class="modal">
 <div class="modal-content">
 <div class="modal-header">
@@ -691,13 +250,11 @@ cursor: pointer;
 </div>
 </div>
 </div>
-
-
 <footer>
-  <div class="footer-container">
+<div class="footer-container">
     <div class="footer-section">
       <h4>Ýolýoldaş Barada</h4>
-      <p>Türkmenistanyň şäherara ugurlary boýunça amatly, tiz and ynamly taksi we ýolagçy gözleg platformasy.</p>
+      <p>Türkmenistanyň şäherara ugurlary boýunça amatly, tiz we ynamly taksi we ýolagçy gözleg platformasy.</p>
     </div>
     <div class="footer-section">
       <h4>Çalt Baglanyşyklar</h4>
@@ -709,12 +266,12 @@ cursor: pointer;
     </div>
     <div class="footer-section">
       <h4>Habarlaşmak</h4>
-      <p>Email: support@yolyoldas.com</p>
-      <p>Tel: +993 65 XXXXXX</p>
+      <p>Email: abdyyewgurbanmyrat07@gmail.com[cite: 2]</p>
+      <p>Tel: +993 64 410621[cite: 2]</p>
     </div>
   </div>
   <div class="footer-bottom">
-    &copy; 2026 Ýolýoldaş Platformasy. Ähli hukuklar goralan.
+    &copy; 2026 Ýolýoldaş Platformasy. Ähli hukuklar goralan[cite: 2].
   </div>
 </footer>
 
@@ -788,18 +345,11 @@ const authBox = document.getElementById('authBox');
 const authNotice = document.getElementById('authNotice');
 const driverNameInput = document.getElementById('driverName');
 const proBtn = document.getElementById('proBtn');
-const adminBtn = document.getElementById('adminBtn');
 const loginBtn = document.getElementById('loginBtn');
 
 if (currentUser) {
 loginBtn.style.display = 'none';
 proBtn.style.display = 'inline-block';
-
-if (currentUser.email === ADMIN_EMAIL) {
-    adminBtn.style.display = 'inline-block';
-} else {
-    adminBtn.style.display = 'none';
-}
 
 if (currentUserProStatus) {
 proBtn.innerText = 'VIP Sürüji';
@@ -826,7 +376,6 @@ driverNameInput.value = currentUser.displayName || '';
 } else {
 loginBtn.style.display = 'flex';
 proBtn.style.display = 'none';
-adminBtn.style.display = 'none';
 const userProfile = document.querySelector('.user-profile');
 if (userProfile) userProfile.remove();
 authNotice.innerHTML = `
@@ -837,15 +386,26 @@ authNotice.innerHTML = `
 }
 } 
 
+// Giriş wagty ýalňyşlyk döretmez ýaly gowulandyrylan funksiýa
 function loginWithGoogle() {
-auth.signInWithPopup(googleProvider)
-.then(result => {
-console.log("Girildi:", result.user.displayName);
-})
-.catch(error => {
-alert("Aşaky ýalňyşlyk ýüze çykdy: " + error.message);
-});
-} 
+    const loginBtn = document.getElementById('loginBtn');
+    if (loginBtn) loginBtn.disabled = true;
+
+    auth.signInWithPopup(googleProvider)
+    .then(result => {
+        console.log("Girildi:", result.user.displayName);
+    })
+    .catch(error => {
+        if (error.code === 'auth/cancelled-popup-request') {
+            console.log("Giriş penjiresi ýapyldy.");
+        } else {
+            alert("Aşaky ýalňyşlyk ýüze çykdy: " + error.message);
+        }
+    })
+    .finally(() => {
+        if (loginBtn) loginBtn.disabled = false;
+    });
+}
 
 function logout() {
 auth.signOut().then(() => {
@@ -906,7 +466,7 @@ if (price > 0) {
             userName: currentUser.displayName
         }, { merge: true });
 
-        alert("📩 Töleg haýyşyňyz uratyldy! Admin barlagdan geçirenden soň PRO status awtomatiki açylar.");
+        alert("📩 Töleg haýyşyňyz ugratyldy! Admin barlagdan geçirenden soň PRO status awtomatiki açylar.");
         closeProModal();
     } catch (e) {
         alert("Ýalňyşlyk döredi: " + e.message);
@@ -1046,124 +606,99 @@ ${ride.isProDriver ? `<span style="color:var(--accent-gold); font-size: 11px; ma
 <div class="ride-details">
 <div>🚘 Maşyn: <span>${ride.car || 'Görkezilmän'}</span></div>
 <div>📅 Wagty: <span>${formatDate(ride.time)}</span></div>
-<div>💺 Boş ýer: <span>${ride.seats} adam</span></div>
 </div>
 <div class="ride-footer">
-                        <a href="tel:${ride.phone}" class="btn-call">📞 Jaň Etmek (${ride.phone})</a>
-                        <button class="btn-book" onclick="bookSeat('${ride.id}')" ${ride.seats <= 0 ? 'disabled' : ''}>${ride.seats <= 0 ? 'Doly' : 'Orun Sargamak'}</button>
-                        ${currentUser && currentUser.uid === ride.userId ? `<button class="btn-delete" onclick="deleteRide('${ride.id}')">🗑️ Pozmak</button>` : ''}
-                    </div>
-                </div>
-            `).join('');
-        }
+<a href="tel:${ride.phone}" class="btn-call">📞 Jaň Etmek (${ride.phone})</a>
+${currentUser && currentUser.uid === ride.userId ? `<button class="btn-delete" onclick="deleteRide('${ride.id}')">🗑️ Pozmak</button>` : ''}
+</div>
+</div>
+`).join('');
+}
 
-        function formatDate(dateStr) {
-            if (!dateStr) return '';
-            const d = new Date(dateStr);
-            return `${d.getDate().toString().padStart(2, '0')}.${(d.getMonth() + 1).toString().padStart(2, '0')} | ${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
-        }
+function formatDate(dateStr) {
+if (!dateStr) return '';
+const d = new Date(dateStr);
+return `${d.getDate().toString().padStart(2, '0')}.${(d.getMonth() + 1).toString().padStart(2, '0')} | ${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
+}
 
-        function filterRides() {
-            const from = document.getElementById('filterFrom').value;
-            const to = document.getElementById('filterTo').value;
+function filterRides() {
+const from = document.getElementById('filterFrom').value;
+const to = document.getElementById('filterTo').value;
 
-            const filtered = allRides.filter(r => (!from || r.from === from) && (!to || r.to === to));
-            renderRides(filtered);
-        }
+const filtered = allRides.filter(r => (!from || r.from === from) && (!to || r.to === to));
+renderRides(filtered);
+}
 
-        async function handlePostRide(e) {
-            e.preventDefault();
+async function handlePostRide(e) {
+e.preventDefault();
 
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.innerText = "Yglan goşulýar...";
+const submitBtn = document.getElementById('submitBtn');
+submitBtn.disabled = true;
+submitBtn.innerText = "Yglan goşulýar...";
 
-            const userId = currentUser ? currentUser.uid : null;
+const userId = currentUser ? currentUser.uid : null;
 
-            const newRide = {
-                userId: userId,
-                userPhoto: currentUser ? currentUser.photoURL : null,
-                driver: document.getElementById('driverName').value,
-                phone: document.getElementById('driverPhone').value,
-                from: document.getElementById('cityFrom').value,
-                to: document.getElementById('cityTo').value,
-                time: document.getElementById('rideTime').value,
-                seats: parseInt(document.getElementById('seatsAvailable').value),
-                price: document.getElementById('pricePerSeat').value,
-                car: document.getElementById('carModel').value,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                isProDriver: currentUserProStatus
-            };
+const newRide = {
+userId: userId,
+userPhoto: currentUser ? currentUser.photoURL : null,
+driver: document.getElementById('driverName').value,
+phone: document.getElementById('driverPhone').value,
+from: document.getElementById('cityFrom').value,
+to: document.getElementById('cityTo').value,
+time: document.getElementById('rideTime').value,
+price: document.getElementById('pricePerSeat').value,
+car: document.getElementById('carModel').value,
+createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+isProDriver: currentUserProStatus
+};
 
-            try {
-                // Eger ulanyjy oturgan bolsa, ozal goşan yglanlaryny tapyp pozýarys (1 ulanyjy - 1 yglan kadasy üçin)
-                if (userId) {
-                    const existingRides = await db.collection("rides").where("userId", "==", userId).get();
-                    const batch = db.batch();
-                    existingRides.forEach(doc => {
-                        batch.delete(doc.ref);
-                    });
-                    await batch.commit();
-                }
+try {
+if (userId) {
+const existingRides = await db.collection("rides").where("userId", "==", userId).get();
+const batch = db.batch();
+existingRides.forEach(doc => {
+batch.delete(doc.ref);
+});
+await batch.commit();
+}
 
-                await db.collection("rides").add(newRide);
-                document.getElementById('rideForm').reset();
-                alert("✅ Yglanyňyz üstünlikli goşuldy! (Öňki yglanyňyz bar bolsa aýryldy)");
-                switchTab('searchView');
-            } catch (error) {
-                alert("Ýalňyşlyk döredi: " + error.message);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerText = "📢 Yglany Ýaýratmak";
-            }
-        }
+await db.collection("rides").add(newRide);
+document.getElementById('rideForm').reset();
+alert("✅ Yglanyňyz üstünlikli goşuldy! (Öňki yglanyňyz bar bolsa aýryldy)");
+switchTab('searchView');
+} catch (error) {
+alert("Ýalňyşlyk döredi: " + error.message);
+} finally {
+submitBtn.disabled = false;
+submitBtn.innerText = "📢 Yglany Ýaýratmak";
+}
+}
 
-        async function deleteRide(docId) {
-            if (confirm("Bu yglany pozmak isleýändigiňize çynmy?")) {
-                try {
-                    await db.collection("rides").doc(docId).delete();
-                    alert("Yglan pozuldy!");
-                } catch (error) {
-                    alert("Pozmakda ýalňyşlyk: " + error.message);
-                }
-            }
-        }
+async function deleteRide(docId) {
+if (confirm("Bu yglany pozmak isleýändigiňize çynmy?")) {
+try {
+await db.collection("rides").doc(docId).delete();
+alert("Yglan pozuldy!");
+} catch (error) {
+alert("Pozmakda ýalňyşlyk: " + error.message);
+}
+}
+}
 
-        async function bookSeat(docId) {
-            if (!currentUser) {
-                alert("Orun sargamak üçin Google bilen giriň.");
-                loginWithGoogle();
-                return;
-            }
-            try {
-                const rideRef = db.collection("rides").doc(docId);
-                await db.runTransaction(async (transaction) => {
-                    const rideDoc = await transaction.get(rideRef);
-                    if (!rideDoc.exists) throw "Yglan tapylmady.";
-                    const newSeats = rideDoc.data().seats - 1;
-                    if (newSeats < 0) throw "Orun galmady.";
-                    transaction.update(rideRef, { seats: newSeats });
-                });
-                alert("✅ Orun sargaldy. Sürüji bilen habarlaşyň.");
-            } catch (error) {
-                alert("Sargamakda ýalňyşlyk: " + error);
-            }
-        }
-
-        async function autoBumpProRides() {
-            if (!currentUser || !currentUserProStatus) return;
-            try {
-                const myRides = await db.collection("rides").where("userId", "==", currentUser.uid).get();
-                const batch = db.batch();
-                myRides.forEach(doc => {
-                    batch.update(doc.ref, { createdAt: firebase.firestore.FieldValue.serverTimestamp() });
-                });
-                await batch.commit();
-                console.log("PRO rides bumped.");
-            } catch (e) {
-                console.error("Auto bump error:", e);
-            }
-        }
+async function autoBumpProRides() {
+if (!currentUser || !currentUserProStatus) return;
+try {
+const myRides = await db.collection("rides").where("userId", "==", currentUser.uid).get();
+const batch = db.batch();
+myRides.forEach(doc => {
+batch.update(doc.ref, { createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+});
+await batch.commit();
+console.log("PRO rides bumped.");
+} catch (e) {
+console.error("Auto bump error:", e);
+}
+}
 </script>
 </body>
 </html>
